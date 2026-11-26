@@ -3,307 +3,480 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#101827">
+<meta name="theme-color" content="#0b1220">
 <link rel="manifest" href="./manifest.webmanifest">
-<title>FAR Trader V2</title>
+<title>FAR Trader V4</title>
+
 <style>
-:root{--bg:#0b1220;--panel:#121d2e;--panel2:#172438;--text:#edf3fb;--muted:#9aabc1;--green:#20c997;--red:#ff647c;--gold:#f5c451;--line:#26364c}
+:root{
+--bg:#08111f;
+--panel:#111d30;
+--panel2:#17263c;
+--text:#edf4ff;
+--muted:#9aabc3;
+--line:#263852;
+--green:#21c58e;
+--red:#ff647c;
+--yellow:#f3bd55;
+--blue:#69a7ff
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Tahoma,sans-serif}
-header{padding:20px;display:flex;justify-content:space-between;align-items:center}
-.brand{font-size:22px;font-weight:800}.brand span{color:var(--green)}
-button{background:var(--panel2);color:white;border:1px solid var(--line);padding:10px 14px;border-radius:12px}
-main{max-width:850px;margin:auto;padding:0 14px 30px}
-.hero,.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:15px;margin-bottom:12px}
-.hero{background:var(--panel2)}
-h1{font-size:19px;margin:0 0 8px}
-h2{font-size:16px;margin:20px 3px 12px}
-h3{font-size:17px;margin:0 0 10px}
-.muted{color:var(--muted);font-size:12px;line-height:1.8}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.price{font-size:20px;font-weight:800;direction:ltr;text-align:right;margin:12px 0}
-.change{direction:ltr;text-align:right;font-size:12px}
-.up{color:var(--green)}.down{color:var(--red)}.neutral{color:var(--gold)}
-.pill{display:inline-block;padding:6px 12px;border-radius:30px;font-weight:800;font-size:12px;background:#3a321c;color:var(--gold)}
-.buy{background:#123e35;color:var(--green)}
-.sell{background:#48232e;color:var(--red)}
-.data{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
-.item{background:var(--panel2);padding:10px;border-radius:10px;min-width:0}
-.item small{display:block;color:var(--muted);font-size:11px;margin-bottom:5px}
-.item b{direction:ltr;display:block;text-align:right;font-size:14px;overflow-wrap:anywhere}
-.reason{margin-top:12px;padding:10px;background:var(--panel2);border-radius:10px;font-size:12px;line-height:1.8}
+body{
+margin:0;
+background:linear-gradient(160deg,#0b1729,#070d17);
+color:var(--text);
+font-family:Tahoma,Arial,sans-serif
+}
+header{
+padding:22px 16px 14px;
+position:sticky;
+top:0;
+background:#08111fee;
+z-index:2;
+border-bottom:1px solid var(--line)
+}
+h1{font-size:23px;margin:0 0 6px}
+.sub{color:var(--muted);font-size:12px}
+main{max-width:1000px;margin:auto;padding:14px}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
+gap:10px
+}
+.card{
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:15px;
+padding:14px;
+margin-bottom:12px
+}
+.metric{font-size:21px;font-weight:bold;margin-top:7px}
+.label{font-size:12px;color:var(--muted)}
+h2{font-size:16px;margin:0 0 12px}
+button,select{
+background:var(--panel2);
+color:var(--text);
+border:1px solid #38506e;
+border-radius:10px;
+padding:10px 13px;
+font:inherit
+}
+button{cursor:pointer;background:#1c4778}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{text-align:right;padding:10px 7px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--muted);font-weight:normal}
+.tablewrap{overflow:auto}
+.pill{padding:4px 8px;border-radius:20px;font-size:11px;background:#263852}
+.buy{color:var(--green)}
+.sell{color:var(--red)}
+.wait{color:var(--yellow)}
+.note{font-size:12px;line-height:1.9;color:var(--muted)}
+.status{font-size:12px;margin-top:10px;color:var(--yellow)}
+.big{font-size:13px;line-height:1.9}
+input{
+background:#0c1829;
+color:var(--text);
+border:1px solid var(--line);
+border-radius:9px;
+padding:9px;
+width:110px
+}
 footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
-@media(max-width:400px){.grid{gap:7px}.card{padding:11px}.price{font-size:17px}}
 </style>
 </head>
+
 <body>
+
 <header>
-<div class="brand">FAR <span>Trader V2</span></div>
-<button id="langBtn">English</button>
+<h1>FAR Trader <span style="color:var(--blue)">V4</span></h1>
+<div class="sub">Smart Copy Trading • Bybit • نسخه آزمایشی</div>
 </header>
 
 <main>
-<section class="hero">
-<h1 id="title">دستیار تحلیل بازار</h1>
-<p class="muted" id="intro">
-تحلیل روند ۱ ساعته، حمایت و مقاومت ۱۵ دقیقه و نقطه ورود ۵ دقیقه.
+
+<div class="grid">
+<div class="card">
+<div class="label">وضعیت اتصال بازار</div>
+<div class="metric" id="connection">در حال اتصال…</div>
+</div>
+
+<div class="card">
+<div class="label">تعداد نمادهای USDT</div>
+<div class="metric" id="count">—</div>
+</div>
+
+<div class="card">
+<div class="label">آخرین به‌روزرسانی</div>
+<div class="metric" id="updated" style="font-size:15px">—</div>
+</div>
+</div>
+
+<section class="card">
+<h2>اسکن فرصت‌های بازار Bybit</h2>
+
+<div class="row">
+<select id="filter">
+<option value="all">همه سیگنال‌ها</option>
+<option value="BUY">فقط خرید</option>
+<option value="SELL">فقط فروش</option>
+<option value="WAIT">فقط انتظار</option>
+</select>
+
+<button id="refresh">به‌روزرسانی</button>
+<span class="label">قراردادهای USDT دائمی</span>
+</div>
+
+<div class="status" id="marketStatus">
+در حال دریافت اطلاعات بازار…
+</div>
+
+<div class="tablewrap">
+<table>
+<thead>
+<tr>
+<th>نماد</th>
+<th>قیمت</th>
+<th>تغییر ۲۴ ساعته</th>
+<th>جهت ۱ ساعته</th>
+<th>سیگنال</th>
+<th>امتیاز</th>
+</tr>
+</thead>
+<tbody id="markets">
+<tr><td colspan="6">در انتظار داده…</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note">
+در این نسخه آزمایشی ابتدا ۱۸ نماد پرتراکنش بررسی می‌شوند.
+سیگنال‌ها فیلتر اولیه هستند و تضمین سود نیستند.
 </p>
-<p class="muted">به‌روزرسانی خودکار هر ۶۰ ثانیه</p>
 </section>
 
-<h2 id="marketTitle">قیمت و تغییرات بازار</h2>
-<div class="grid" id="coins">
-<div class="card">در حال دریافت اطلاعات...</div>
+<section class="card">
+<h2>رتبه‌بندی معامله‌گران Copy Trading</h2>
+
+<div class="big">منبع اطلاعات: رتبه‌بندی رسمی Bybit</div>
+
+<div class="status" id="leaderStatus">
+اتصال مستقیم به فهرست رسمی معامله‌گران هنوز فعال نشده است.
 </div>
 
-<h2 id="analysisTitle">تحلیل و نقاط ورود و خروج</h2>
-<div id="analyses">
-<div class="card">در حال تحلیل بازار...</div>
+<p class="note">
+این نسخه نام یا سود ساختگی نمایش نمی‌دهد.
+برای نمایش رتبه‌بندی واقعی باید دسترسی مجاز و پایدار به داده‌های Copy Trading فراهم شود.
+</p>
+
+<div class="row">
+<button onclick="window.open('https://www.bybit.com/copyTrading','_blank')">
+باز کردن Copy Trading رسمی Bybit
+</button>
+</div>
+</section>
+
+<section class="card">
+<h2>فیلتر مدیریت ریسک</h2>
+
+<div class="row">
+<label class="label">حداکثر ریسک هر معامله (%)</label>
+<input id="risk" type="number" min=".1" max="2" step=".1" value="0.5">
+
+<label class="label">حد ضرر روزانه (%)</label>
+<input id="daily" type="number" min="1" max="10" step=".5" value="2">
 </div>
 
-<p class="muted" id="updated">—</p>
-<footer>
-FAR Trader V2 · اطلاعات عمومی Bybit Spot · بدون اجرای خودکار معامله
-</footer>
+<p class="note">
+این اعداد فقط تنظیمات نمایشی هستند و به سفارش‌گذاری متصل نیستند.
+</p>
+</section>
+
+<section class="card">
+<h2>وضعیت اجرای معامله</h2>
+
+<div class="big">
+<span class="pill">فقط پیشنهاد و تأیید دستی</span>
+</div>
+
+<p class="note">
+هیچ سفارشی ثبت نمی‌شود.
+کلید API یا رمز عبور را در این سایت یا GitHub وارد نکن.
+اجرای خودکار در این نسخه غیرفعال است.
+</p>
+</section>
+
 </main>
 
+<footer>
+FAR Trader V4 • Bybit Market Scanner
+</footer>
+
 <script>
-const pairs=["BTCUSDT","ETHUSDT","SOLUSDT","XRPUSDT"];
-let lang="fa";
+const API='https://api.bybit.com';
 
 const $=id=>document.getElementById(id);
 
-function fmt(n){
- if(!Number.isFinite(Number(n)))return "—";
- return Number(n).toLocaleString(
- lang==="fa"?"fa-IR":"en-US",
- {maximumFractionDigits:Number(n)>100?2:6}
- );
-}
+let rows=[];
 
-function avg(a){
- return a.reduce((x,y)=>x+y,0)/a.length;
-}
+async function getJSON(url){
 
-function ema(values,period){
- const k=2/(period+1);
- let result=values[0];
- for(let i=1;i<values.length;i++)
- result=values[i]*k+result*(1-k);
- return result;
-}
+const controller=new AbortController();
 
-function atr(candles,period=14){
- const ranges=[];
- for(let i=1;i<candles.length;i++){
-  const c=candles[i],p=candles[i-1];
-  ranges.push(Math.max(
-   c.high-c.low,
-   Math.abs(c.high-p.close),
-   Math.abs(c.low-p.close)
-  ));
- }
- return avg(ranges.slice(-period));
-}
+const timer=setTimeout(
+()=>controller.abort(),12000
+);
 
-function parseCandles(list){
- return list.map(x=>({
-  time:Number(x[0]),
-  open:Number(x[1]),
-  high:Number(x[2]),
-  low:Number(x[3]),
-  close:Number(x[4])
- })).sort((a,b)=>a.time-b.time);
-}
+try{
 
-async function getCandles(symbol,interval){
- const url=`https://api.bybit.com/v5/market/kline?category=spot&symbol=${symbol}&interval=${interval}&limit=100`;
- const r=await fetch(url);
- if(!r.ok)throw Error("خطای دریافت کندل");
- const j=await r.json();
- if(j.retCode!==0)throw Error(j.retMsg);
- const all=parseCandles(j.result.list);
- // حذف کندل آخر، چون ممکن است هنوز بسته نشده باشد
- return all.slice(0,-1);
-}
-
-async function getTicker(){
- const r=await fetch("https://api.bybit.com/v5/market/tickers?category=spot");
- if(!r.ok)throw Error("Ticker error");
- const j=await r.json();
- if(j.retCode!==0)throw Error(j.retMsg);
- return j.result.list;
-}
-
-function analyze(h1,m15,m5){
- if(h1.length<55||m15.length<25||m5.length<25)
- throw Error("داده کافی برای تحلیل وجود ندارد");
-
- const closes=h1.map(x=>x.close);
- const e20=ema(closes.slice(-60),20);
- const e50=ema(closes.slice(-80),50);
- const last1=h1[h1.length-1];
-
- let trend="NEUTRAL";
- if(e20>e50&&last1.close>e20)trend="UP";
- if(e20<e50&&last1.close<e20)trend="DOWN";
-
- const recent15=m15.slice(-20);
- const support=Math.min(...recent15.map(x=>x.low));
- const resistance=Math.max(...recent15.map(x=>x.high));
-
- const last=m5[m5.length-1];
- const prev=m5[m5.length-2];
- const a=atr(m5);
-
- const nearSupport=last.close<=support+a*1.5;
- const nearResistance=last.close>=resistance-a*1.5;
-
- const bullish=last.close>last.open&&last.close>prev.high;
- const bearish=last.close<last.open&&last.close<prev.low;
-
- let signal="WAIT";
- let reason="شرایط ورود کامل نیست.";
-
- if(trend==="UP"&&nearSupport&&bullish){
-  signal="BUY";
-  reason="روند صعودی، نزدیکی به حمایت و تأیید کندل صعودی.";
- }
-
- if(trend==="DOWN"&&nearResistance&&bearish){
-  signal="SELL";
-  reason="روند نزولی، نزدیکی به مقاومت و تأیید کندل نزولی.";
- }
-
- let entry=null,sl=null,tp1=null,tp2=null;
-
- if(signal==="BUY"){
-  entry=last.close;
-  sl=Math.min(support-a*0.3,entry-a*1.5);
-  const risk=entry-sl;
-  tp1=entry+risk*1.5;
-  tp2=entry+risk*2.5;
- }
-
- if(signal==="SELL"){
-  entry=last.close;
-  sl=Math.max(resistance+a*0.3,entry+a*1.5);
-  const risk=sl-entry;
-  tp1=entry-risk*1.5;
-  tp2=entry-risk*2.5;
- }
-
- return {
-  signal,reason,trend,support,resistance,entry,sl,tp1,tp2
- };
-}
-
-function signalText(s){
- if(s==="BUY")return lang==="fa"?"خرید":"BUY";
- if(s==="SELL")return lang==="fa"?"فروش":"SELL";
- return lang==="fa"?"انتظار":"WAIT";
-}
-
-function renderCoinPrices(tickers){
- $("coins").innerHTML=pairs.map(p=>{
-  const x=tickers.find(z=>z.symbol===p);
-  if(!x)return `<div class="card">${p}<p class="muted">قیمت دریافت نشد</p></div>`;
-  const ch=Number(x.price24hPcnt)*100;
-  const cls=ch>0?"up":ch<0?"down":"neutral";
-  return `<div class="card">
-   <b>${p.replace("USDT","")} / USDT</b>
-   <div class="price">${fmt(x.lastPrice)}</div>
-   <div class="change ${cls}">${ch>0?"+":""}${ch.toFixed(2)}%</div>
-  </div>`;
- }).join("");
-}
-
-function renderAnalysis(symbol,result){
- const buy=result.signal==="BUY";
- const sell=result.signal==="SELL";
- const cls=buy?"buy":sell?"sell":"";
- const trend= result.trend==="UP"?"صعودی":result.trend==="DOWN"?"نزولی":"خنثی";
- const trendEn=result.trend==="UP"?"Bullish":result.trend==="DOWN"?"Bearish":"Neutral";
-
- const labels=lang==="fa"?
- ["روند ۱ ساعته","حمایت ۱۵ دقیقه","مقاومت ۱۵ دقیقه","ورود","حد ضرر","هدف اول","هدف دوم"]:
- ["1H Trend","15M Support","15M Resistance","Entry","Stop Loss","Target 1","Target 2"];
-
- const values=[
-  lang==="fa"?trend:trendEn,
-  fmt(result.support),
-  fmt(result.resistance),
-  fmt(result.entry),
-  fmt(result.sl),
-  fmt(result.tp1),
-  fmt(result.tp2)
- ];
-
- return `<section class="card">
- <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
- <h3>${symbol.replace("USDT","")} / USDT</h3>
- <span class="pill ${cls}">${signalText(result.signal)}</span>
- </div>
- <div class="data">
- ${labels.map((x,i)=>`<div class="item"><small>${x}</small><b>${values[i]}</b></div>`).join("")}
- </div>
- <div class="reason">${result.reason}</div>
- ${result.signal==="WAIT"?
- `<p class="muted">${lang==="fa"?"تا تأیید شرایط ورود، معامله نکن.":"Wait for confirmation before trading."}</p>`:""}
- </section>`;
-}
-
-async function analyzePair(pair){
- const [h1,m15,m5]=await Promise.all([
-  getCandles(pair,"60"),
-  getCandles(pair,"15"),
-  getCandles(pair,"5")
- ]);
- return analyze(h1,m15,m5);
-}
-
-async function refresh(){
- $("analyses").innerHTML="";
- try{
-  const tickers=await getTicker();
-  renderCoinPrices(tickers);
- }catch(e){
-  $("coins").innerHTML=`<div class="card">خطا در دریافت قیمت از Bybit</div>`;
- }
-
- for(const pair of pairs){
-  try{
-   const result=await analyzePair(pair);
-   $("analyses").innerHTML+=renderAnalysis(pair,result);
-  }catch(e){
-   $("analyses").innerHTML+=`<section class="card">
-   <h3>${pair}</h3><p class="muted">خطا در تحلیل: ${e.message}</p>
-   </section>`;
-  }
- }
-
- $("updated").textContent=
- (lang==="fa"?"آخرین بروزرسانی: ":"Last update: ")+
- new Date().toLocaleTimeString(lang==="fa"?"fa-IR":"en-US");
-}
-
-$("langBtn").addEventListener("click",()=>{
- lang=lang==="fa"?"en":"fa";
- document.documentElement.lang=lang;
- document.documentElement.dir=lang==="fa"?"rtl":"ltr";
- $("langBtn").textContent=lang==="fa"?"English":"فارسی";
- $("title").textContent=lang==="fa"?"دستیار تحلیل بازار":"Market Analysis Assistant";
- $("marketTitle").textContent=lang==="fa"?"قیمت و تغییرات بازار":"Market Prices";
- $("analysisTitle").textContent=lang==="fa"?"تحلیل و نقاط ورود و خروج":"Analysis & Trade Levels";
- refresh();
+const r=await fetch(url,{
+cache:'no-store',
+signal:controller.signal
 });
 
-refresh();
-setInterval(refresh,60000);
+if(!r.ok)throw new Error('HTTP '+r.status);
 
-if("serviceWorker" in navigator&&location.protocol.startsWith("http")){
- navigator.serviceWorker.register("./sw.js").catch(()=>{});
+const j=await r.json();
+
+if(j.retCode!==0)
+throw new Error(j.retMsg||'API error');
+
+return j.result;
+
+}finally{
+
+clearTimeout(timer);
+
 }
+
+}
+
+function ema(a,p){
+
+if(a.length<p)return null;
+
+let k=2/(p+1);
+
+let v=a.slice(0,p).reduce(
+(x,y)=>x+y,0
+)/p;
+
+for(let i=p;i<a.length;i++){
+
+v=a[i]*k+v*(1-k);
+
+}
+
+return v;
+
+}
+
+async function analyze(symbol){
+
+const x=await getJSON(
+`${API}/v5/market/kline?category=linear&symbol=${symbol}&interval=60&limit=80`
+);
+
+const candles=(x.list||[])
+.slice(1)
+.reverse();
+
+const closes=candles
+.map(c=>+c[4])
+.filter(Number.isFinite);
+
+if(closes.length<55){
+
+return{
+trend:'نامشخص',
+signal:'WAIT',
+score:0
+};
+
+}
+
+const e20=ema(closes,20);
+const e50=ema(closes,50);
+const last=closes.at(-1);
+
+const trend=
+e20>e50?'صعودی':
+e20<e50?'نزولی':'خنثی';
+
+let score=Math.min(
+95,
+Math.round(
+50+Math.abs((e20-e50)/last)*1800
+)
+);
+
+let signal='WAIT';
+
+if(e20>e50 && last>e20)
+signal='BUY';
+
+if(e20<e50 && last<e20)
+signal='SELL';
+
+return{trend,signal,score};
+
+}
+
+function fmt(n){
+
+return Number(n).toLocaleString(
+'en-US',
+{maximumFractionDigits:8}
+);
+
+}
+
+async function load(){
+
+$('refresh').disabled=true;
+
+$('connection').textContent='در حال دریافت';
+
+$('marketStatus').textContent=
+'دریافت فهرست نمادها…';
+
+try{
+
+const result=await getJSON(
+`${API}/v5/market/tickers?category=linear`
+);
+
+const all=(result.list||[])
+.filter(t=>
+t.symbol.endsWith('USDT') &&
++t.turnover24h>0
+);
+
+all.sort((a,b)=>
++b.turnover24h-a.turnover24h
+);
+
+const selected=all.slice(0,18);
+
+$('count').textContent=all.length;
+
+$('marketStatus').textContent=
+`در حال تحلیل ${selected.length} نماد پرتراکنش…`;
+
+const analyzed=await Promise.all(
+selected.map(async t=>{
+
+try{
+
+return{
+...t,
+...await analyze(t.symbol)
+};
+
+}catch(e){
+
+return{
+...t,
+trend:'نامشخص',
+signal:'WAIT',
+score:0
+};
+
+}
+
+})
+);
+
+rows=analyzed;
+
+render();
+
+$('connection').textContent='متصل';
+
+$('updated').textContent=
+new Date().toLocaleTimeString('fa-IR');
+
+$('marketStatus').textContent=
+'داده بازار دریافت شد؛ تحلیل اولیه انجام شد.';
+
+}catch(e){
+
+$('connection').textContent='خطا';
+
+$('marketStatus').textContent=
+'خطا در دریافت داده: '+e.message+
+' — ممکن است دسترسی شبکه یا منطقه‌ای به API محدود باشد.';
+
+}finally{
+
+$('refresh').disabled=false;
+
+}
+
+}
+
+function render(){
+
+const f=$('filter').value;
+
+const list=rows.filter(r=>
+f==='all'||r.signal===f
+);
+
+$('markets').innerHTML=list.map(r=>`
+
+<tr>
+
+<td>${r.symbol}</td>
+
+<td>${fmt(r.lastPrice)}</td>
+
+<td class="${
++r.price24hPcnt>=0?'buy':'sell'
+}">
+${(+r.price24hPcnt*100).toFixed(2)}%
+</td>
+
+<td>${r.trend}</td>
+
+<td class="${
+r.signal==='BUY'?'buy':
+r.signal==='SELL'?'sell':'wait'
+}">
+${r.signal}
+</td>
+
+<td>${r.score}/100</td>
+
+</tr>
+
+`).join('')||
+
+'<tr><td colspan="6">موردی پیدا نشد</td></tr>';
+
+}
+
+$('refresh').addEventListener('click',load);
+
+$('filter').addEventListener('change',render);
+
+if('serviceWorker'in navigator){
+
+window.addEventListener('load',()=>{
+
+navigator.serviceWorker
+.register('./sw.js')
+.catch(()=>{});
+
+});
+
+}
+
+load();
+
+setInterval(load,90000);
+
 </script>
+
 </body>
 </html>
