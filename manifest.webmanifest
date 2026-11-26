@@ -1,0 +1,9 @@
+{
+  "name": "FAR Trader",
+  "short_name": "FAR Trader",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#101827",
+  "description": "Bilingual Bybit market dashboard"
+}
