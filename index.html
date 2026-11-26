@@ -2,90 +2,308 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#101827">
-
 <link rel="manifest" href="./manifest.webmanifest">
-<title>FAR Trader</title>
+<title>FAR Trader V2</title>
 <style>
 :root{--bg:#0b1220;--panel:#121d2e;--panel2:#172438;--text:#edf3fb;--muted:#9aabc1;--green:#20c997;--red:#ff647c;--gold:#f5c451;--line:#26364c}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#0b1220,#101b2d);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif}
-header{padding:22px 18px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand{font-size:22px;font-weight:800;letter-spacing:.4px}.brand span{color:var(--green)}
-button{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:10px 14px;border-radius:12px;font-weight:700}
-main{max-width:850px;margin:auto;padding:4px 16px 32px}
-.hero{background:linear-gradient(130deg,#172b40,#142033);border:1px solid #2a4059;border-radius:20px;padding:18px;margin-bottom:16px}
-.hero h1{margin:0 0 6px;font-size:20px}.hero p{margin:0;color:var(--muted);line-height:1.7;font-size:13px}
-.section-title{display:flex;align-items:center;justify-content:space-between;margin:20px 2px 10px;font-size:16px;font-weight:800}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Tahoma,sans-serif}
+header{padding:20px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-size:22px;font-weight:800}.brand span{color:var(--green)}
+button{background:var(--panel2);color:white;border:1px solid var(--line);padding:10px 14px;border-radius:12px}
+main{max-width:850px;margin:auto;padding:0 14px 30px}
+.hero,.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:15px;margin-bottom:12px}
+.hero{background:var(--panel2)}
+h1{font-size:19px;margin:0 0 8px}
+h2{font-size:16px;margin:20px 3px 12px}
+h3{font-size:17px;margin:0 0 10px}
+.muted{color:var(--muted);font-size:12px;line-height:1.8}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;min-width:0}
-.coin{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px}
-.symbol{font-weight:800;color:var(--text);font-size:15px}
-.price{font-size:20px;font-weight:800;margin:12px 0 5px;direction:ltr;text-align:right}
-.change{font-size:13px;direction:ltr;text-align:right}
+.price{font-size:20px;font-weight:800;direction:ltr;text-align:right;margin:12px 0}
+.change{direction:ltr;text-align:right;font-size:12px}
 .up{color:var(--green)}.down{color:var(--red)}.neutral{color:var(--gold)}
-.status{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.pill{border-radius:999px;padding:6px 10px;background:#3a321c;color:var(--gold);font-size:12px;font-weight:800}
-.muted{color:var(--muted);font-size:12px;line-height:1.7}
-.signal-card{margin-top:10px}.signal-card h3{margin:0 0 8px;font-size:15px}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-.step{background:var(--panel2);padding:12px 8px;border-radius:12px;text-align:center}
-.step b{display:block;font-size:14px;margin-bottom:4px}.step small{color:var(--muted);font-size:11px}
-footer{text-align:center;color:var(--muted);font-size:11px;padding:22px 8px}
-#updated{direction:ltr;display:inline-block}
-@media(max-width:430px){.price{font-size:18px}.grid{gap:8px}.card{padding:12px}}
+.pill{display:inline-block;padding:6px 12px;border-radius:30px;font-weight:800;font-size:12px;background:#3a321c;color:var(--gold)}
+.buy{background:#123e35;color:var(--green)}
+.sell{background:#48232e;color:var(--red)}
+.data{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+.item{background:var(--panel2);padding:10px;border-radius:10px;min-width:0}
+.item small{display:block;color:var(--muted);font-size:11px;margin-bottom:5px}
+.item b{direction:ltr;display:block;text-align:right;font-size:14px;overflow-wrap:anywhere}
+.reason{margin-top:12px;padding:10px;background:var(--panel2);border-radius:10px;font-size:12px;line-height:1.8}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
+@media(max-width:400px){.grid{gap:7px}.card{padding:11px}.price{font-size:17px}}
 </style>
 </head>
 <body>
-<header><div class="brand">FAR <span>Trader</span></div><button id="langBtn" aria-label="Change language">English</button></header>
+<header>
+<div class="brand">FAR <span>Trader V2</span></div>
+<button id="langBtn">English</button>
+</header>
+
 <main>
-<section class="hero"><h1 id="welcome">داشبورد معاملاتی</h1><p id="intro">بازار را زیر نظر بگیر؛ تصمیم نهایی همیشه با معامله‌گر است. این نسخه فقط داده‌های عمومی بازار را نمایش می‌دهد.</p></section>
-<div class="section-title"><span id="marketTitle">قیمت بازار</span><span class="muted">Bybit · Spot</span></div>
-<div class="grid" id="coins">
-<div class="card"><div class="muted">در حال دریافت قیمت…</div></div>
-</div>
-<div class="section-title"><span id="signalTitle">وضعیت تحلیل</span><span class="pill" id="waitPill">WAIT · انتظار</span></div>
-<section class="card signal-card">
-<h3 id="signalHeading">موتور تحلیل تکنیکال</h3>
-<p class="muted" id="signalDesc">در این نسخه اولیه، سیگنال معاملاتی تولید نمی‌شود تا زمانی که منطق تحلیل و آزمون آن تکمیل شود. هیچ سیگنال ساختگی نمایش داده نخواهد شد.</p>
-<div class="steps">
-<div class="step"><b>1H</b><small id="trend">تشخیص روند</small></div>
-<div class="step"><b>15M</b><small id="levels">حمایت / مقاومت</small></div>
-<div class="step"><b>5M</b><small id="entry">بررسی ورود</small></div>
-</div>
+<section class="hero">
+<h1 id="title">دستیار تحلیل بازار</h1>
+<p class="muted" id="intro">
+تحلیل روند ۱ ساعته، حمایت و مقاومت ۱۵ دقیقه و نقطه ورود ۵ دقیقه.
+</p>
+<p class="muted">به‌روزرسانی خودکار هر ۶۰ ثانیه</p>
 </section>
-<p class="muted" style="margin:14px 3px"><span id="lastLabel">آخرین بروزرسانی:</span> <span id="updated">—</span></p>
-<footer id="foot">FAR Trader V1 · داده عمومی بازار · بدون اجرای معامله</footer>
+
+<h2 id="marketTitle">قیمت و تغییرات بازار</h2>
+<div class="grid" id="coins">
+<div class="card">در حال دریافت اطلاعات...</div>
+</div>
+
+<h2 id="analysisTitle">تحلیل و نقاط ورود و خروج</h2>
+<div id="analyses">
+<div class="card">در حال تحلیل بازار...</div>
+</div>
+
+<p class="muted" id="updated">—</p>
+<footer>
+FAR Trader V2 · اطلاعات عمومی Bybit Spot · بدون اجرای خودکار معامله
+</footer>
 </main>
+
 <script>
 const pairs=["BTCUSDT","ETHUSDT","SOLUSDT","XRPUSDT"];
 let lang="fa";
-const copy={
-fa:{dir:"rtl",btn:"English",welcome:"داشبورد معاملاتی",intro:"بازار را زیر نظر بگیر؛ تصمیم نهایی همیشه با معامله‌گر است. این نسخه فقط داده‌های عمومی بازار را نمایش می‌دهد.",market:"قیمت بازار",signal:"وضعیت تحلیل",wait:"WAIT · انتظار",heading:"موتور تحلیل تکنیکال",desc:"در این نسخه اولیه، سیگنال معاملاتی تولید نمی‌شود تا زمانی که منطق تحلیل و آزمون آن تکمیل شود. هیچ سیگنال ساختگی نمایش داده نخواهد شد.",trend:"تشخیص روند",levels:"حمایت / مقاومت",entry:"بررسی ورود",last:"آخرین بروزرسانی:",foot:"FAR Trader V1 · داده عمومی بازار · بدون اجرای معامله",loading:"در حال دریافت قیمت…",error:"دریافت قیمت ناموفق بود",change:"۲۴ ساعت"},
-en:{dir:"ltr",btn:"فارسی",welcome:"Trading Dashboard",intro:"Monitor the market; the trader always makes the final decision. This early version displays public market data only.",market:"Market prices",signal:"Analysis status",wait:"WAIT",heading:"Technical analysis engine",desc:"This early version does not generate trading signals until the analysis logic is implemented and tested. No fabricated signals will be shown.",trend:"Trend detection",levels:"Support / resistance",entry:"Entry check",last:"Last updated:",foot:"FAR Trader V1 · Public market data · No trade execution",loading:"Loading prices…",error:"Could not load prices",change:"24h"}
-};
-function renderText(){
- const t=copy[lang];document.documentElement.lang=lang;document.documentElement.dir=t.dir;
- for(const [id,key] of Object.entries({langBtn:"btn",welcome:"welcome",intro:"intro",marketTitle:"market",signalTitle:"signal",waitPill:"wait",signalHeading:"heading",signalDesc:"desc",trend:"trend",levels:"levels",entry:"entry",lastLabel:"last",foot:"foot"}))document.getElementById(id).textContent=t[key];
+
+const $=id=>document.getElementById(id);
+
+function fmt(n){
+ if(!Number.isFinite(Number(n)))return "—";
+ return Number(n).toLocaleString(
+ lang==="fa"?"fa-IR":"en-US",
+ {maximumFractionDigits:Number(n)>100?2:6}
+ );
 }
-function fmt(n){if(n===undefined||n===null)return "—";return Number(n).toLocaleString(lang==="fa"?"fa-IR":"en-US",{maximumFractionDigits:Number(n)>100?2:6});}
-async function load(){
- const box=document.getElementById("coins"), t=copy[lang];
+
+function avg(a){
+ return a.reduce((x,y)=>x+y,0)/a.length;
+}
+
+function ema(values,period){
+ const k=2/(period+1);
+ let result=values[0];
+ for(let i=1;i<values.length;i++)
+ result=values[i]*k+result*(1-k);
+ return result;
+}
+
+function atr(candles,period=14){
+ const ranges=[];
+ for(let i=1;i<candles.length;i++){
+  const c=candles[i],p=candles[i-1];
+  ranges.push(Math.max(
+   c.high-c.low,
+   Math.abs(c.high-p.close),
+   Math.abs(c.low-p.close)
+  ));
+ }
+ return avg(ranges.slice(-period));
+}
+
+function parseCandles(list){
+ return list.map(x=>({
+  time:Number(x[0]),
+  open:Number(x[1]),
+  high:Number(x[2]),
+  low:Number(x[3]),
+  close:Number(x[4])
+ })).sort((a,b)=>a.time-b.time);
+}
+
+async function getCandles(symbol,interval){
+ const url=`https://api.bybit.com/v5/market/kline?category=spot&symbol=${symbol}&interval=${interval}&limit=100`;
+ const r=await fetch(url);
+ if(!r.ok)throw Error("خطای دریافت کندل");
+ const j=await r.json();
+ if(j.retCode!==0)throw Error(j.retMsg);
+ const all=parseCandles(j.result.list);
+ // حذف کندل آخر، چون ممکن است هنوز بسته نشده باشد
+ return all.slice(0,-1);
+}
+
+async function getTicker(){
+ const r=await fetch("https://api.bybit.com/v5/market/tickers?category=spot");
+ if(!r.ok)throw Error("Ticker error");
+ const j=await r.json();
+ if(j.retCode!==0)throw Error(j.retMsg);
+ return j.result.list;
+}
+
+function analyze(h1,m15,m5){
+ if(h1.length<55||m15.length<25||m5.length<25)
+ throw Error("داده کافی برای تحلیل وجود ندارد");
+
+ const closes=h1.map(x=>x.close);
+ const e20=ema(closes.slice(-60),20);
+ const e50=ema(closes.slice(-80),50);
+ const last1=h1[h1.length-1];
+
+ let trend="NEUTRAL";
+ if(e20>e50&&last1.close>e20)trend="UP";
+ if(e20<e50&&last1.close<e20)trend="DOWN";
+
+ const recent15=m15.slice(-20);
+ const support=Math.min(...recent15.map(x=>x.low));
+ const resistance=Math.max(...recent15.map(x=>x.high));
+
+ const last=m5[m5.length-1];
+ const prev=m5[m5.length-2];
+ const a=atr(m5);
+
+ const nearSupport=last.close<=support+a*1.5;
+ const nearResistance=last.close>=resistance-a*1.5;
+
+ const bullish=last.close>last.open&&last.close>prev.high;
+ const bearish=last.close<last.open&&last.close<prev.low;
+
+ let signal="WAIT";
+ let reason="شرایط ورود کامل نیست.";
+
+ if(trend==="UP"&&nearSupport&&bullish){
+  signal="BUY";
+  reason="روند صعودی، نزدیکی به حمایت و تأیید کندل صعودی.";
+ }
+
+ if(trend==="DOWN"&&nearResistance&&bearish){
+  signal="SELL";
+  reason="روند نزولی، نزدیکی به مقاومت و تأیید کندل نزولی.";
+ }
+
+ let entry=null,sl=null,tp1=null,tp2=null;
+
+ if(signal==="BUY"){
+  entry=last.close;
+  sl=Math.min(support-a*0.3,entry-a*1.5);
+  const risk=entry-sl;
+  tp1=entry+risk*1.5;
+  tp2=entry+risk*2.5;
+ }
+
+ if(signal==="SELL"){
+  entry=last.close;
+  sl=Math.max(resistance+a*0.3,entry+a*1.5);
+  const risk=sl-entry;
+  tp1=entry-risk*1.5;
+  tp2=entry-risk*2.5;
+ }
+
+ return {
+  signal,reason,trend,support,resistance,entry,sl,tp1,tp2
+ };
+}
+
+function signalText(s){
+ if(s==="BUY")return lang==="fa"?"خرید":"BUY";
+ if(s==="SELL")return lang==="fa"?"فروش":"SELL";
+ return lang==="fa"?"انتظار":"WAIT";
+}
+
+function renderCoinPrices(tickers){
+ $("coins").innerHTML=pairs.map(p=>{
+  const x=tickers.find(z=>z.symbol===p);
+  if(!x)return `<div class="card">${p}<p class="muted">قیمت دریافت نشد</p></div>`;
+  const ch=Number(x.price24hPcnt)*100;
+  const cls=ch>0?"up":ch<0?"down":"neutral";
+  return `<div class="card">
+   <b>${p.replace("USDT","")} / USDT</b>
+   <div class="price">${fmt(x.lastPrice)}</div>
+   <div class="change ${cls}">${ch>0?"+":""}${ch.toFixed(2)}%</div>
+  </div>`;
+ }).join("");
+}
+
+function renderAnalysis(symbol,result){
+ const buy=result.signal==="BUY";
+ const sell=result.signal==="SELL";
+ const cls=buy?"buy":sell?"sell":"";
+ const trend= result.trend==="UP"?"صعودی":result.trend==="DOWN"?"نزولی":"خنثی";
+ const trendEn=result.trend==="UP"?"Bullish":result.trend==="DOWN"?"Bearish":"Neutral";
+
+ const labels=lang==="fa"?
+ ["روند ۱ ساعته","حمایت ۱۵ دقیقه","مقاومت ۱۵ دقیقه","ورود","حد ضرر","هدف اول","هدف دوم"]:
+ ["1H Trend","15M Support","15M Resistance","Entry","Stop Loss","Target 1","Target 2"];
+
+ const values=[
+  lang==="fa"?trend:trendEn,
+  fmt(result.support),
+  fmt(result.resistance),
+  fmt(result.entry),
+  fmt(result.sl),
+  fmt(result.tp1),
+  fmt(result.tp2)
+ ];
+
+ return `<section class="card">
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+ <h3>${symbol.replace("USDT","")} / USDT</h3>
+ <span class="pill ${cls}">${signalText(result.signal)}</span>
+ </div>
+ <div class="data">
+ ${labels.map((x,i)=>`<div class="item"><small>${x}</small><b>${values[i]}</b></div>`).join("")}
+ </div>
+ <div class="reason">${result.reason}</div>
+ ${result.signal==="WAIT"?
+ `<p class="muted">${lang==="fa"?"تا تأیید شرایط ورود، معامله نکن.":"Wait for confirmation before trading."}</p>`:""}
+ </section>`;
+}
+
+async function analyzePair(pair){
+ const [h1,m15,m5]=await Promise.all([
+  getCandles(pair,"60"),
+  getCandles(pair,"15"),
+  getCandles(pair,"5")
+ ]);
+ return analyze(h1,m15,m5);
+}
+
+async function refresh(){
+ $("analyses").innerHTML="";
  try{
-  const res=await fetch("https://api.bybit.com/v5/market/tickers?category=spot");
-  if(!res.ok)throw Error("HTTP "+res.status);
-  const data=await res.json();if(data.retCode!==0)throw Error(data.retMsg);
-  const map=Object.fromEntries(data.result.list.filter(x=>pairs.includes(x.symbol)).map(x=>[x.symbol,x]));
-  box.innerHTML=pairs.map(pair=>{
-   const x=map[pair];if(!x)return `<div class="card"><div class="symbol">${pair}</div><p class="muted">${t.error}</p></div>`;
-   const ch=Number(x.price24hPcnt)*100, cls=ch>0?"up":ch<0?"down":"neutral", sign=ch>0?"+":"";
-   return `<article class="card"><div class="coin"><span class="symbol">${pair.replace("USDT","")}</span><span>USDT</span></div><div class="price">${fmt(x.lastPrice)}</div><div class="change ${cls}">${sign}${ch.toFixed(2)}% · ${t.change}</div></article>`;
-  }).join("");
-  document.getElementById("updated").textContent=new Date().toLocaleTimeString(lang==="fa"?"fa-IR":"en-US");
- }catch(e){box.innerHTML=pairs.map(p=>`<div class="card"><div class="symbol">${p}</div><p class="muted">${t.error}</p></div>`).join("");}
+  const tickers=await getTicker();
+  renderCoinPrices(tickers);
+ }catch(e){
+  $("coins").innerHTML=`<div class="card">خطا در دریافت قیمت از Bybit</div>`;
+ }
+
+ for(const pair of pairs){
+  try{
+   const result=await analyzePair(pair);
+   $("analyses").innerHTML+=renderAnalysis(pair,result);
+  }catch(e){
+   $("analyses").innerHTML+=`<section class="card">
+   <h3>${pair}</h3><p class="muted">خطا در تحلیل: ${e.message}</p>
+   </section>`;
+  }
+ }
+
+ $("updated").textContent=
+ (lang==="fa"?"آخرین بروزرسانی: ":"Last update: ")+
+ new Date().toLocaleTimeString(lang==="fa"?"fa-IR":"en-US");
 }
-document.getElementById("langBtn").addEventListener("click",()=>{lang=lang==="fa"?"en":"fa";renderText();load();});
-renderText();load();setInterval(load,30000);
-if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(()=>{});
+
+$("langBtn").addEventListener("click",()=>{
+ lang=lang==="fa"?"en":"fa";
+ document.documentElement.lang=lang;
+ document.documentElement.dir=lang==="fa"?"rtl":"ltr";
+ $("langBtn").textContent=lang==="fa"?"English":"فارسی";
+ $("title").textContent=lang==="fa"?"دستیار تحلیل بازار":"Market Analysis Assistant";
+ $("marketTitle").textContent=lang==="fa"?"قیمت و تغییرات بازار":"Market Prices";
+ $("analysisTitle").textContent=lang==="fa"?"تحلیل و نقاط ورود و خروج":"Analysis & Trade Levels";
+ refresh();
+});
+
+refresh();
+setInterval(refresh,60000);
+
+if("serviceWorker" in navigator&&location.protocol.startsWith("http")){
+ navigator.serviceWorker.register("./sw.js").catch(()=>{});
+}
 </script>
-</body></html>
+</body>
+</html>
