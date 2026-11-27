@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#08111f">
 <link rel="manifest" href="./manifest.webmanifest">
-<title>FAR Trader V6.2</title>
+<title>FAR Trader V6.3 Professional</title>
 
 <style>
 :root{
@@ -22,69 +22,52 @@
 *{box-sizing:border-box}
 body{
 margin:0;background:var(--bg);color:var(--text);
-font-family:Tahoma,Arial,sans-serif;
-font-size:13px;
+font-family:Tahoma,Arial,sans-serif;font-size:13px;
 }
 header{
-padding:13px 15px;
-background:#0c1829;
+padding:12px 14px;background:#0c1829;
 border-bottom:1px solid var(--line);
 position:sticky;top:0;z-index:5;
 }
-h1{font-size:19px;margin:0}
+h1{font-size:18px;margin:0}
 .sub{font-size:10px;color:var(--muted);margin-top:5px;line-height:1.8}
 main{max-width:900px;margin:auto;padding:9px}
 .card{
-background:var(--panel);
-border:1px solid var(--line);
-border-radius:12px;
-padding:11px;margin-bottom:9px;
+background:var(--panel);border:1px solid var(--line);
+border-radius:12px;padding:11px;margin-bottom:9px;
 }
 h2{font-size:14px;margin:0 0 9px}
 .grid{
-display:grid;
-grid-template-columns:repeat(4,minmax(0,1fr));
-gap:6px;
+display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;
 }
-.metric{
-background:#14243a;
-border-radius:9px;
-padding:8px 4px;
-text-align:center;
+.metric,.box,.detail{
+background:#14243a;border-radius:8px;padding:8px 5px;text-align:center;
 }
 .label{font-size:9px;color:var(--muted)}
 .value{font-size:15px;font-weight:bold;margin-top:5px}
 .row{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
 button,select,input{
-background:#1c4778;color:white;
-border:1px solid #38506e;
-padding:9px;border-radius:8px;
-font:inherit;
+background:#1c4778;color:white;border:1px solid #38506e;
+padding:9px;border-radius:8px;font:inherit;
 }
 button{cursor:pointer}
 button:disabled{opacity:.5}
-input{width:85px}
+input{width:75px}
 .status{font-size:11px;color:var(--yellow);margin:8px 0;line-height:1.8}
-.progress{
-height:5px;background:#263852;
-border-radius:8px;overflow:hidden;margin-top:7px;
+.progress,.scorebar{
+height:5px;background:#263852;border-radius:8px;overflow:hidden;margin-top:7px;
 }
-.progress div{
-height:100%;width:0%;
-background:var(--green);
-transition:width .3s;
-}
+.progress div{height:100%;width:0%;background:var(--green);transition:width .3s}
 .note{font-size:10px;color:var(--muted);line-height:1.9}
 .coin{
-background:#0d192b;
-border:1px solid var(--line);
-border-radius:11px;
-padding:10px;margin-bottom:8px;
+background:#0d192b;border:1px solid var(--line);
+border-radius:11px;padding:10px;margin-bottom:8px;
 }
 .coin.explosive{border-color:#b77b35}
+.coin.ready{border-color:var(--yellow)}
 .coinhead{
-display:flex;justify-content:space-between;
-align-items:center;gap:5px;flex-wrap:wrap;
+display:flex;justify-content:space-between;align-items:center;
+gap:5px;flex-wrap:wrap;
 }
 .coinhead h3{margin:0;font-size:14px}
 .pill{
@@ -94,66 +77,35 @@ background:#263852;font-size:10px;
 .buy{color:var(--green)}
 .sell{color:var(--red)}
 .wait{color:var(--yellow)}
+.readyText{color:var(--yellow)}
 .price{
-font-size:17px;font-weight:bold;
-direction:ltr;text-align:right;
-margin:8px 0;
+font-size:17px;font-weight:bold;direction:ltr;
+text-align:right;margin:8px 0;
 }
 .summary{
-display:grid;
-grid-template-columns:repeat(3,minmax(0,1fr));
-gap:5px;
+display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;
 }
-.box{
-background:#14243a;
-border-radius:8px;padding:7px;
-min-width:0;
-}
-.box b{
-display:block;margin-top:5px;
-font-size:12px;direction:ltr;
-overflow-wrap:anywhere;
-}
-details{margin-top:8px}
-summary{
-cursor:pointer;color:var(--blue);
-font-size:11px;padding:5px 0;
-}
-.details{
-display:grid;
-grid-template-columns:repeat(2,minmax(0,1fr));
-gap:6px;margin-top:7px;
-}
-.detail{
-background:#14243a;
-border-radius:7px;padding:8px;
-min-width:0;
-}
-.detail b{
-display:block;margin-top:5px;
-font-size:11px;direction:ltr;
-overflow-wrap:anywhere;
-}
-.scorebar{
-height:5px;background:#263852;
-border-radius:8px;overflow:hidden;margin-top:7px;
+.box{text-align:right;min-width:0}
+.box b,.detail b{
+display:block;margin-top:5px;font-size:11px;
+direction:ltr;overflow-wrap:anywhere;
 }
 .scorebar div{height:100%;background:var(--blue)}
-.tablewrap{overflow-x:auto}
-table{
-width:100%;border-collapse:collapse;
-font-size:10px;min-width:650px;
+details{margin-top:8px}
+summary{cursor:pointer;color:var(--blue);font-size:11px;padding:5px 0}
+.details{
+display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+gap:6px;margin-top:7px;
 }
+.detail{text-align:right;min-width:0}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:10px;min-width:650px}
 td,th{
-padding:8px 5px;
-border-bottom:1px solid var(--line);
+padding:8px 5px;border-bottom:1px solid var(--line);
 text-align:right;white-space:nowrap;
 }
 th{color:var(--muted)}
-footer{
-text-align:center;color:var(--muted);
-font-size:10px;padding:15px;
-}
+footer{text-align:center;color:var(--muted);font-size:10px;padding:15px}
 @media(min-width:650px){
 main{padding:15px}
 .details{grid-template-columns:repeat(4,minmax(0,1fr))}
@@ -164,9 +116,9 @@ main{padding:15px}
 <body>
 
 <header>
-<h1>FAR Trader V6.2 🚀</h1>
+<h1>FAR Trader V6.3 🚀</h1>
 <div class="sub">
-Compact Pro | Bybit USDT Perpetual
+Professional Futures Scanner | Bybit USDT Perpetual
 <br>
 Trend 1H | Structure 15M | Entry 5M
 </div>
@@ -175,6 +127,7 @@ Trend 1H | Structure 15M | Entry 5M
 <main>
 
 <section class="card">
+
 <div class="grid">
 <div class="metric">
 <div class="label">اتصال</div>
@@ -185,12 +138,12 @@ Trend 1H | Structure 15M | Entry 5M
 <div class="value" id="count">0</div>
 </div>
 <div class="metric">
-<div class="label">سیگنال‌ها</div>
+<div class="label">سیگنال قطعی</div>
 <div class="value" id="signalCount">0</div>
 </div>
 <div class="metric">
-<div class="label">قوی</div>
-<div class="value" id="strongCount">0</div>
+<div class="label">آماده ورود</div>
+<div class="value" id="readyCount">0</div>
 </div>
 </div>
 
@@ -204,14 +157,15 @@ Trend 1H | Structure 15M | Entry 5M
 </div>
 
 <div class="note">
-بروزرسانی خودکار: ۶۰ ثانیه |
+بروزرسانی: هر ۶۰ ثانیه |
 آخرین بروزرسانی: <span id="updated">---</span>
 </div>
+
 </section>
 
 
 <section class="card">
-<h2>⚙️ تنظیمات سرمایه</h2>
+<h2>⚙️ مدیریت سرمایه</h2>
 <div class="row">
 <label>سرمایه
 <input id="balance" type="number" value="100" min="1">
@@ -230,7 +184,7 @@ Trend 1H | Structure 15M | Entry 5M
 </label>
 </div>
 <p class="note">
-حجم محاسباتی نظری است؛ کارمزد، لغزش و مارجین لحاظ نشده‌اند.
+حجم موقعیت نظری است. کارمزد، لغزش قیمت و مارجین لحاظ نشده‌اند.
 </p>
 </section>
 
@@ -241,8 +195,9 @@ Trend 1H | Structure 15M | Entry 5M
 <option value="ALL">همه ارزها</option>
 <option value="BUY">فقط LONG</option>
 <option value="SELL">فقط SHORT</option>
+<option value="READY">فقط READY</option>
 <option value="WAIT">فقط WAIT</option>
-<option value="EXPLOSIVE">فرصت‌های پرنوسان</option>
+<option value="EXPLOSIVE">پرنوسان‌ها</option>
 </select>
 </section>
 
@@ -263,7 +218,7 @@ Trend 1H | Structure 15M | Entry 5M
 <th>قیمت</th>
 <th>تغییر</th>
 <th>روند</th>
-<th>سیگنال</th>
+<th>وضعیت</th>
 <th>امتیاز</th>
 </tr>
 </thead>
@@ -276,22 +231,24 @@ Trend 1H | Structure 15M | Entry 5M
 
 
 <section class="card">
-<h2>⚠️ نکات مهم</h2>
+<h2>⚠️ مدیریت ریسک</h2>
 <p class="note">
-این برنامه فقط تحلیل و سیگنال ارائه می‌کند و معامله خودکار انجام نمی‌دهد.
+این برنامه فقط تحلیل و پیشنهاد معاملاتی ارائه می‌کند.
 <br>
 امتیاز ۹۰ به معنی احتمال موفقیت ۹۰ درصد نیست.
 <br>
-سیگنال‌ها را ابتدا در حساب دمو آزمایش کنید.
+سیگنال‌ها ابتدا باید در حساب دمو آزمایش شوند.
 <br>
-کلید خصوصی API را در این برنامه وارد نکنید.
+READY به معنی فرصت در حال شکل‌گیری است، نه دستور ورود.
+<br>
+هیچ کلید خصوصی API را در این برنامه وارد نکنید.
 </p>
 </section>
 
 </main>
 
 <footer>
-FAR Trader V6.2 | Compact Pro
+FAR Trader V6.3 Professional
 </footer>
 
 
@@ -325,6 +282,12 @@ return Number(n).toLocaleString('en-US',{maximumFractionDigits:8});
 
 function pct(n){
 return Number(n||0).toFixed(2)+'%';
+}
+
+function safeText(s){
+return String(s??'').replace(/[&<>"']/g,c=>({
+'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+})[c]);
 }
 
 
@@ -430,17 +393,13 @@ else losses-=change;
 if(losses===0)return 100;
 if(gains===0)return 0;
 
-const rs=gains/losses;
-
-return 100-(100/(1+rs));
+return 100-(100/(1+gains/losses));
 }
 
 
 function macdData(values){
 
 if(values.length<35)return null;
-
-const line=ema(values,12)-ema(values,26);
 
 const series=[];
 
@@ -449,6 +408,7 @@ const part=values.slice(0,i+1);
 series.push(ema(part,12)-ema(part,26));
 }
 
+const line=series[series.length-1];
 const signal=ema(series,9);
 
 return {
@@ -514,6 +474,7 @@ function getStructure(data){
 
 const sample=data.slice(-13,-1);
 const last=data[data.length-1];
+const previous=data[data.length-2];
 
 const high=Math.max(...sample.map(c=>c.high));
 const low=Math.min(...sample.map(c=>c.low));
@@ -521,9 +482,14 @@ const low=Math.min(...sample.map(c=>c.low));
 return {
 bullish:last.close>high,
 bearish:last.close<low,
+
 sweepLow:last.low<low&&last.close>low,
 sweepHigh:last.high>high&&last.close<high,
-high,low
+
+high,low,
+
+previousBullish:previous.close>high,
+previousBearish:previous.close<low
 };
 }
 
@@ -539,7 +505,16 @@ const avg=sample.reduce((a,c)=>a+c.volume,0)/sample.length;
 
 const ratio=avg>0?last.volume/avg:0;
 
-return {ratio,spike:ratio>=1.8};
+return {
+ratio,
+spike:ratio>=1.8,
+strong:ratio>=1.3
+};
+}
+
+
+function near(a,b,percent){
+return Math.abs(a-b)/Math.max(Math.abs(b),1e-12)<=percent;
 }
 
 
@@ -549,6 +524,7 @@ const trend=getTrend(c1);
 
 const closes=c5.map(c=>c.close);
 const last=c5[c5.length-1];
+const previous=c5[c5.length-2];
 
 const e9=ema(closes,9);
 const e20=ema(closes,20);
@@ -591,7 +567,7 @@ if(direction==='SELL'&&r<50&&r>28)add('RSI',8);
 if(macd&&direction==='BUY'&&macd.histogram>0)add('MACD',10);
 if(macd&&direction==='SELL'&&macd.histogram<0)add('MACD',10);
 
-if(volume.spike)add('حجم',10);
+if(volume.strong)add('حجم',8);
 
 if(direction==='BUY'&&s15.bullish)add('BOS 15M',14);
 if(direction==='SELL'&&s15.bearish)add('BOS 15M',14);
@@ -609,13 +585,13 @@ let score=Object.values(points).reduce((a,b)=>a+b,0);
 const funding=Number(ticker.fundingRate||0);
 
 if(direction==='BUY'&&funding>0.001){
-score-=8;
-reasons.push('جریمه Funding -8');
+score-=5;
+reasons.push('Funding نامطلوب -5');
 }
 
 if(direction==='SELL'&&funding< -0.001){
-score-=8;
-reasons.push('جریمه Funding -8');
+score-=5;
+reasons.push('Funding نامطلوب -5');
 }
 
 score=Math.max(0,Math.min(100,score));
@@ -623,50 +599,132 @@ score=Math.max(0,Math.min(100,score));
 let signal='WAIT';
 let entry=null,sl=null,tp1=null,tp2=null,tp3=null;
 let rr=null;
+
 let blockReason='';
+let readyReason='';
 
 const minScore=Number($('minScore').value);
 const age=Date.now()-last.time;
 
-if(!direction)blockReason='روند اصلی مشخص نیست';
+const oversold=r!==null&&r<20;
+const overbought=r!==null&&r>80;
+
+const atrValue=volatility;
+
+const pullbackBUY=
+direction==='BUY'&&
+(e20!==null&&near(price,e20,0.006));
+
+const pullbackSELL=
+direction==='SELL'&&
+(e20!==null&&near(price,e20,0.006));
+
+const pullback=direction==='BUY'?pullbackBUY:pullbackSELL;
+
+const confirmationBUY=
+direction==='BUY'&&
+last.close>last.open&&
+last.close>previous.close;
+
+const confirmationSELL=
+direction==='SELL'&&
+last.close<last.open&&
+last.close<previous.close;
+
+const confirmation=direction==='BUY'
+?confirmationBUY:confirmationSELL;
+
+const sweep=direction==='BUY'
+?(s5.sweepLow||s15.sweepLow)
+:(s5.sweepHigh||s15.sweepHigh);
+
+const structure=direction==='BUY'
+?(s15.bullish||s5.bullish)
+:(s15.bearish||s5.bearish);
+
+const choch=direction==='BUY'
+?(s5.bullish&&s5.previousBearish)
+:(s5.bearish&&s5.previousBullish);
+
+
+if(!direction){
+blockReason='روند اصلی مشخص نیست';
+}
 
 if(direction&&age>10*60*1000){
 blockReason='کندل تحلیل قدیمی است';
 }
 
-if(direction&&!blockReason&&volatility<=0){
+if(direction&&atrValue<=0){
 blockReason='نوسان کافی نیست';
 }
 
 const drift=Math.abs(price-last.close);
-const maxDrift=Math.max(volatility*.35,price*.0015);
+const maxDrift=Math.max(atrValue*.35,price*.0015);
 
 if(direction&&!blockReason&&drift>maxDrift){
 blockReason='قیمت از محدوده ورود فاصله گرفته است';
 }
 
-if(direction&&!blockReason&&(last.high-last.low)>volatility*2.5){
+if(direction&&!blockReason&&
+(last.high-last.low)>atrValue*2.5){
 blockReason='کندل اخیر بیش از حد پرنوسان است';
 }
 
-if(direction&&!blockReason&&score<minScore){
-blockReason='امتیاز کافی نیست';
+if(direction==='SELL'&&oversold){
+blockReason='RSI زیر ۲۰؛ احتمال برگشت قیمت';
 }
 
-if(direction&&!blockReason&&score>=minScore){
+if(direction==='BUY'&&overbought){
+blockReason='RSI بالای ۸۰؛ احتمال اصلاح قیمت';
+}
+
+
+// امتیاز READY
+let ready=false;
+
+if(direction&&!blockReason){
+
+const readyConditions=
+pullback&&
+score>=Math.max(55,minScore-15)&&
+!oversold&&!overbought&&
+(confirmation||structure||sweep);
+
+if(readyConditions){
+ready=true;
+readyReason='پولبک شناسایی شد؛ منتظر تأیید ورود';
+}
+
+}
+
+
+// شرایط سیگنال نهایی
+const finalConfirmation=
+confirmation&&
+structure&&
+score>=minScore&&
+!oversold&&!overbought;
+
+
+if(direction&&!blockReason&&finalConfirmation){
 
 entry=price;
 
 if(direction==='BUY'){
+
 sl=Math.min(
-entry-volatility*1.5,
-Math.min(s5.low,s15.low)-volatility*.1
+entry-atrValue*1.5,
+Math.min(s5.low,s15.low)-atrValue*.1
 );
+
 }else{
+
 sl=Math.max(
-entry+volatility*1.5,
-Math.max(s5.high,s15.high)+volatility*.1
+entry+atrValue*1.5,
+Math.max(s5.high,s15.high)+atrValue*.1
 );
+
 }
 
 const distance=Math.abs(entry-sl);
@@ -677,19 +735,17 @@ blockReason='حد ضرر مناسب محاسبه نشد';
 
 }else{
 
-const risk=distance;
-
 if(direction==='BUY'){
-tp1=entry+risk*1.5;
-tp2=entry+risk*2.2;
-tp3=entry+risk*3;
+tp1=entry+distance*1.5;
+tp2=entry+distance*2.2;
+tp3=entry+distance*3;
 }else{
-tp1=entry-risk*1.5;
-tp2=entry-risk*2.2;
-tp3=entry-risk*3;
+tp1=entry-distance*1.5;
+tp2=entry-distance*2.2;
+tp3=entry-distance*3;
 }
 
-rr=Math.abs(tp1-entry)/distance;
+rr=1.5;
 
 if(rr>=1.5){
 signal=direction;
@@ -699,31 +755,72 @@ blockReason='نسبت سود به ضرر مناسب نیست';
 
 }
 
+}
+
+if(signal==='WAIT'&&ready){
+signal='READY';
+}
+
+if(signal==='WAIT'&&direction&&!blockReason&&score<minScore){
+blockReason='امتیاز کافی نیست';
+}
+
+if(signal==='WAIT'&&direction&&!blockReason&&!finalConfirmation){
+blockReason='تأیید نهایی ورود کامل نشده است';
+}
+
+if(signal==='READY'){
+entry=null;
+sl=null;
+tp1=null;
+tp2=null;
+tp3=null;
+rr=null;
+}
+
 if(signal==='WAIT'){
-entry=null;sl=null;tp1=null;tp2=null;tp3=null;
+entry=null;
+sl=null;
+tp1=null;
+tp2=null;
+tp3=null;
+rr=null;
 }
 
-}
 
-const explosive=volume.spike&&
+const explosive=
+volume.spike&&
 Math.abs(Number(ticker.price24hPcnt||0))>=.03;
 
 return {
-signal,score,points,reasons,blockReason,
+
+signal,score,points,reasons,blockReason,readyReason,
+
 trend,support:levels.support,
 resistance:levels.resistance,
+
 entry,sl,tp1,tp2,tp3,rr,
+
 rsi:r,
 volumeRatio:volume.ratio,
 funding,
+
 explosive,
-explosiveConfirmed:explosive&&signal!=='WAIT',
-structure15:s15,
-structure5:s5,
+
 change:Number(ticker.price24hPcnt||0)*100,
 turnover:Number(ticker.turnover24h||0),
+
 macdHistogram:macd?macd.histogram:null,
+
+structure15:s15,
+structure5:s5,
+
+pullback,
+sweep,
+choch,
+
 lastCandleTime:last.time
+
 };
 
 }
@@ -768,6 +865,7 @@ const symbols=[...new Set([
 ])];
 
 return {symbols,tickers};
+
 }
 
 
@@ -799,6 +897,7 @@ symbol,
 price:Number(ticker.lastPrice),
 ...evaluate(c1,c15,c5,ticker)
 };
+
 }
 
 
@@ -821,6 +920,7 @@ await fn(items[current],current);
 });
 
 await Promise.all(tasks);
+
 }
 
 
@@ -835,6 +935,7 @@ const riskPercent=Math.min(
 );
 
 const riskCash=balance*riskPercent/100;
+
 const distance=Math.abs(r.entry-r.sl);
 
 if(distance<=0)return null;
@@ -846,12 +947,51 @@ riskCash,
 quantity,
 notional:quantity*r.entry
 };
+
 }
 
 
 function signalName(s){
 
-return s==='BUY'?'LONG':s==='SELL'?'SHORT':'WAIT';
+if(s==='BUY')return '🟢 LONG';
+if(s==='SELL')return '🔴 SHORT';
+if(s==='READY')return '🟡 READY';
+
+return 'WAIT';
+
+}
+
+
+function notifySignals(){
+
+if(!('Notification'in window)||Notification.permission!=='granted')return;
+
+for(const r of rows){
+
+if(r.error||r.signal==='WAIT')continue;
+
+const key=r.symbol+'-'+r.signal+'-'+r.lastCandleTime;
+
+if(notified.has(key))continue;
+
+notified.add(key);
+
+try{
+
+new Notification('FAR Trader V6.3 | '+r.symbol,{
+
+body:signalName(r.signal)+
+' | امتیاز '+r.score+
+(r.signal==='READY'
+?' | فرصت در حال شکل‌گیری'
+:' | ورود '+fmt(r.entry)+' | SL '+fmt(r.sl))
+
+});
+
+}catch(e){}
+
+}
+
 }
 
 
@@ -863,30 +1003,48 @@ const list=rows.filter(r=>{
 
 if(filter==='BUY')return r.signal==='BUY';
 if(filter==='SELL')return r.signal==='SELL';
+if(filter==='READY')return r.signal==='READY';
 if(filter==='WAIT')return r.signal==='WAIT';
 if(filter==='EXPLOSIVE')return r.explosive;
 
 return true;
+
 });
 
 
 $('analysis').innerHTML=list.map(r=>{
 
 if(r.error){
-return `<div class="coin"><b>${r.symbol}</b><p class="note">${r.error}</p></div>`;
+
+return `
+<div class="coin">
+<b>${safeText(r.symbol)}</b>
+<p class="note">${safeText(r.error)}</p>
+</div>`;
+
 }
 
-const cls=r.signal==='BUY'?'buy':r.signal==='SELL'?'sell':'wait';
+const cls=
+r.signal==='BUY'?'buy':
+r.signal==='SELL'?'sell':
+r.signal==='READY'?'readyText':'wait';
+
 const size=positionSize(r);
 
 return `
-<div class="coin ${r.explosive?'explosive':''}">
+
+<div class="coin ${r.explosive?'explosive':''} ${r.signal==='READY'?'ready':''}">
 
 <div class="coinhead">
-<h3>${r.symbol}</h3>
+
+<h3>${safeText(r.symbol)}</h3>
+
 <span class="pill ${cls}">${signalName(r.signal)}</span>
+
 <span class="pill">${r.score}/100</span>
+
 ${r.explosive?'<span class="pill">⚡ پرنوسان</span>':''}
+
 </div>
 
 <div class="price">${fmt(r.price)}</div>
@@ -910,47 +1068,129 @@ ${r.explosive?'<span class="pill">⚡ پرنوسان</span>':''}
 
 </div>
 
-<div class="scorebar"><div style="width:${r.score}%"></div></div>
+<div class="scorebar">
+<div style="width:${r.score}%"></div>
+</div>
 
 <details>
+
 <summary>مشاهده جزئیات تحلیل و مدیریت معامله</summary>
 
 <div class="details">
 
-<div class="detail"><div class="label">ورود</div><b>${fmt(r.entry)}</b></div>
-<div class="detail"><div class="label">حد ضرر</div><b>${fmt(r.sl)}</b></div>
-<div class="detail"><div class="label">TP1</div><b>${fmt(r.tp1)}</b></div>
-<div class="detail"><div class="label">TP2</div><b>${fmt(r.tp2)}</b></div>
-<div class="detail"><div class="label">TP3</div><b>${fmt(r.tp3)}</b></div>
-<div class="detail"><div class="label">نسبت سود به ضرر</div><b>${fmt(r.rr)}</b></div>
-<div class="detail"><div class="label">حجم موقعیت نظری</div><b>${size?fmt(size.notional):'---'}</b></div>
-<div class="detail"><div class="label">ریسک نظری USDT</div><b>${size?fmt(size.riskCash):'---'}</b></div>
-<div class="detail"><div class="label">حمایت</div><b>${fmt(r.support)}</b></div>
-<div class="detail"><div class="label">مقاومت</div><b>${fmt(r.resistance)}</b></div>
-<div class="detail"><div class="label">RSI</div><b>${fmt(r.rsi)}</b></div>
-<div class="detail"><div class="label">Funding Rate</div><b>${fmt(r.funding)}</b></div>
+<div class="detail">
+<div class="label">ورود</div>
+<b>${fmt(r.entry)}</b>
+</div>
+
+<div class="detail">
+<div class="label">حد ضرر</div>
+<b>${fmt(r.sl)}</b>
+</div>
+
+<div class="detail">
+<div class="label">TP1</div>
+<b>${fmt(r.tp1)}</b>
+</div>
+
+<div class="detail">
+<div class="label">TP2</div>
+<b>${fmt(r.tp2)}</b>
+</div>
+
+<div class="detail">
+<div class="label">TP3</div>
+<b>${fmt(r.tp3)}</b>
+</div>
+
+<div class="detail">
+<div class="label">نسبت سود به ضرر</div>
+<b>${fmt(r.rr)}</b>
+</div>
+
+<div class="detail">
+<div class="label">حجم موقعیت نظری</div>
+<b>${size?fmt(size.notional):'---'}</b>
+</div>
+
+<div class="detail">
+<div class="label">ریسک نظری USDT</div>
+<b>${size?fmt(size.riskCash):'---'}</b>
+</div>
+
+<div class="detail">
+<div class="label">حمایت</div>
+<b>${fmt(r.support)}</b>
+</div>
+
+<div class="detail">
+<div class="label">مقاومت</div>
+<b>${fmt(r.resistance)}</b>
+</div>
+
+<div class="detail">
+<div class="label">RSI</div>
+<b>${fmt(r.rsi)}</b>
+</div>
+
+<div class="detail">
+<div class="label">Funding Rate</div>
+<b>${fmt(r.funding)}</b>
+</div>
 
 </div>
 
 <p class="note">
-BOS 15M:
-${r.structure15.bullish?'صعودی':r.structure15.bearish?'نزولی':'ندارد'}
+
+Pullback:
+${r.pullback?'تشخیص داده شد':'ندارد'}
+
 <br>
-BOS 5M:
-${r.structure5.bullish?'صعودی':r.structure5.bearish?'نزولی':'ندارد'}
+
+CHoCH:
+${r.choch?'تشخیص احتمالی':'تأیید نشده'}
+
 <br>
+
 Liquidity Sweep:
-${r.structure5.sweepLow?'کف':r.structure5.sweepHigh?'سقف':'ندارد'}
+${r.sweep?'تشخیص داده شد':'ندارد'}
+
 <br>
-MACD Histogram: ${fmt(r.macdHistogram)}
+
+BOS 15M:
+${r.structure15.bullish?'صعودی':
+r.structure15.bearish?'نزولی':'ندارد'}
+
 <br>
-دلایل امتیاز: ${r.reasons.join(' | ')||'---'}
+
+BOS 5M:
+${r.structure5.bullish?'صعودی':
+r.structure5.bearish?'نزولی':'ندارد'}
+
 <br>
-${r.signal==='WAIT'?'علت عدم صدور سیگنال: '+r.blockReason:''}
+
+MACD Histogram:
+${fmt(r.macdHistogram)}
+
+<br>
+
+دلایل امتیاز:
+${r.reasons.join(' | ')||'---'}
+
+<br>
+
+${r.signal==='READY'
+?'وضعیت: '+r.readyReason:''}
+
+${r.signal==='WAIT'
+?'علت عدم صدور سیگنال: '+r.blockReason:''}
+
 </p>
 
 </details>
+
 </div>
+
 `;
 
 }).join('')||'<p class="note">موردی برای نمایش نیست.</p>';
@@ -959,61 +1199,46 @@ ${r.signal==='WAIT'?'علت عدم صدور سیگنال: '+r.blockReason:''}
 $('markets').innerHTML=list.map(r=>{
 
 if(r.error){
-return `<tr><td>${r.symbol}</td><td colspan="5">${r.error}</td></tr>`;
+
+return `<tr><td>${safeText(r.symbol)}</td><td colspan="5">${safeText(r.error)}</td></tr>`;
+
 }
 
-const cls=r.signal==='BUY'?'buy':r.signal==='SELL'?'sell':'wait';
+const cls=
+r.signal==='BUY'?'buy':
+r.signal==='SELL'?'sell':
+r.signal==='READY'?'readyText':'wait';
 
 return `
+
 <tr>
-<td>${r.symbol}</td>
+<td>${safeText(r.symbol)}</td>
 <td>${fmt(r.price)}</td>
 <td>${pct(r.change)}</td>
 <td>${r.trend}</td>
 <td class="${cls}">${signalName(r.signal)}</td>
 <td>${r.score}</td>
 </tr>
+
 `;
 
 }).join('');
 
 
-const signals=rows.filter(r=>!r.error&&r.signal!=='WAIT');
+$('signalCount').textContent=
+rows.filter(r=>!r.error&&
+(r.signal==='BUY'||r.signal==='SELL')).length;
 
-$('signalCount').textContent=signals.length;
+$('readyCount').textContent=
+rows.filter(r=>!r.error&&r.signal==='READY').length;
 
-$('strongCount').textContent=signals.filter(r=>
-r.score>=Number($('minScore').value)
-).length;
+$('strongCount')?.textContent=
+rows.filter(r=>!r.error&&
+(r.signal==='BUY'||r.signal==='SELL')&&
+r.score>=Number($('minScore').value)).length;
 
 notifySignals();
-}
 
-
-function notifySignals(){
-
-if(!('Notification'in window)||Notification.permission!=='granted')return;
-
-for(const r of rows){
-
-if(r.error||r.signal==='WAIT')continue;
-
-const key=r.symbol+'-'+r.signal+'-'+r.lastCandleTime;
-
-if(notified.has(key))continue;
-
-notified.add(key);
-
-try{
-
-new Notification('FAR Trader V6.2 | '+r.symbol,{
-body:signalName(r.signal)+' | امتیاز '+r.score+
-' | ورود '+fmt(r.entry)+' | SL '+fmt(r.sl)
-});
-
-}catch(e){}
-
-}
 }
 
 
@@ -1048,9 +1273,13 @@ await worker(universe.symbols,async(symbol)=>{
 $('marketStatus').textContent='تحلیل '+symbol;
 
 try{
+
 fresh.push(await analyzeSymbol(symbol,tickerMap));
+
 }catch(e){
+
 fresh.push({symbol,error:e.message});
+
 }
 
 completed++;
@@ -1061,6 +1290,7 @@ $('progressBar').style.width=
 (completed/universe.symbols.length*100)+'%';
 
 rows=fresh.slice();
+
 render();
 
 },CONCURRENCY);
@@ -1082,7 +1312,9 @@ render();
 }catch(e){
 
 $('connection').textContent='خطا';
-$('marketStatus').textContent='خطا در اتصال: '+e.message;
+
+$('marketStatus').textContent=
+'خطا در اتصال: '+e.message;
 
 }finally{
 
@@ -1090,21 +1322,29 @@ $('refresh').disabled=false;
 busy=false;
 
 }
+
 }
 
 
 $('refresh').addEventListener('click',load);
+
 $('filter').addEventListener('change',render);
+
 $('minScore').addEventListener('change',render);
+
 $('balance').addEventListener('input',render);
+
 $('risk').addEventListener('input',render);
 
 
 $('notify').addEventListener('click',async()=>{
 
 if(!('Notification'in window)){
+
 alert('مرورگر اعلان را پشتیبانی نمی‌کند.');
+
 return;
+
 }
 
 const permission=await Notification.requestPermission();
@@ -1113,7 +1353,7 @@ if(permission==='granted'){
 
 $('marketStatus').textContent='اعلان‌ها فعال شدند.';
 
-new Notification('FAR Trader V6.2',{
+new Notification('FAR Trader V6.3',{
 body:'اعلان‌های برنامه فعال شدند.'
 });
 
@@ -1127,18 +1367,24 @@ $('marketStatus').textContent='مجوز اعلان داده نشد.';
 
 
 $('copyBtn').addEventListener('click',()=>{
+
 window.open('https://www.bybit.com/copyTrading','_blank');
+
 });
 
 
 if('serviceWorker'in navigator){
+
 navigator.serviceWorker.register('./sw.js').catch(()=>{});
+
 }
 
 
 load();
+
 setInterval(load,REFRESH_MS);
 
 </script>
+
 </body>
 </html>
