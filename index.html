@@ -5,961 +5,297 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#08111f">
 <link rel="manifest" href="./manifest.webmanifest">
-<title>FAR Trader V6.4</title>
-
+<title>FAR Trader V6.5</title>
 <style>
-:root{
- --bg:#08111f;--panel:#111e30;--panel2:#17263a;
- --text:#eaf2ff;--muted:#91a5bd;--green:#20d69a;
- --red:#ff647c;--yellow:#ffc857;--blue:#5ca8ff;
- --border:#263950;
-}
-*{box-sizing:border-box}
-body{
- margin:0;background:var(--bg);color:var(--text);
- font-family:Tahoma,Arial,sans-serif;font-size:13px;
-}
-header{
- padding:16px 13px 12px;text-align:center;
- background:linear-gradient(130deg,#102b48,#0b1728);
- border-bottom:1px solid var(--border);
-}
-h1{font-size:21px;margin:0 0 7px}
-.subtitle{color:var(--muted);font-size:11px;line-height:1.8}
-.container{max-width:850px;margin:auto;padding:10px}
-.grid{
- display:grid;grid-template-columns:repeat(4,1fr);
- gap:7px;margin-bottom:10px;
-}
-.kpi,.box,.card{
- background:var(--panel);border:1px solid var(--border);
- border-radius:11px;padding:11px;
-}
-.kpi{text-align:center}
-.kpi small{display:block;color:var(--muted);font-size:10px}
-.kpi strong{display:block;font-size:19px;margin-top:7px}
-.green{color:var(--green)!important}
-.red{color:var(--red)!important}
-.yellow{color:var(--yellow)!important}
-.blue{color:var(--blue)!important}
-.muted{color:var(--muted)}
-.actions{
- display:grid;grid-template-columns:1fr 1fr 1fr;
- gap:7px;margin-bottom:10px;
-}
-button{
- border:0;border-radius:9px;padding:12px 5px;
- font-weight:bold;font-size:12px;cursor:pointer;
- color:#fff;background:#245b91;
-}
-button:disabled{opacity:.5}
-.btn-green{background:#087b60}
-.btn-orange{background:#9a6720}
-.status{
- padding:10px;border-radius:9px;background:#102238;
- margin-bottom:10px;text-align:center;color:var(--muted);
- line-height:1.8;overflow-wrap:anywhere;
-}
-h3{font-size:14px;margin:3px 0 10px}
-.box{margin-bottom:10px}
-.formgrid{
- display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
-}
-label{display:block;color:var(--muted);font-size:10px;margin-bottom:5px}
-input,select{
- width:100%;background:#091625;color:white;
- border:1px solid var(--border);border-radius:7px;
- padding:9px;font-size:13px;
-}
-.filterrow{display:flex;gap:7px;flex-wrap:wrap}
-.filterrow button{flex:1;background:#243b55}
-.filterrow button.active{background:#087b60}
-.card{margin-bottom:8px}
-.cardhead{
- display:flex;justify-content:space-between;
- align-items:center;gap:8px;margin-bottom:9px;
-}
-.symbol{font-size:15px;font-weight:bold}
-.badge{
- padding:5px 8px;border-radius:7px;
- background:#263b53;font-size:10px;
-}
-.buy{background:#075a45;color:#65f5bd}
-.sell{background:#702b3a;color:#ff9cac}
-.wait{background:#51401f;color:#ffdc8c}
-.ready{background:#17466b;color:#a5d6ff}
-.details{
- display:grid;grid-template-columns:repeat(3,1fr);
- gap:7px;
-}
-.detail{
- background:#0a1727;padding:8px;border-radius:7px;
- min-width:0;
-}
-.detail small{display:block;color:var(--muted);font-size:9px}
-.detail b{display:block;margin-top:5px;font-size:11px;overflow-wrap:anywhere}
-.scorebar{
- height:5px;background:#25364a;border-radius:8px;
- margin-top:10px;overflow:hidden;
-}
-.scorebar span{display:block;height:100%;background:var(--green)}
-.reason{font-size:10px;color:var(--muted);line-height:1.8;margin-top:8px}
-table{width:100%;border-collapse:collapse;font-size:10px}
-th,td{padding:9px 5px;border-bottom:1px solid var(--border);text-align:center}
-th{color:var(--muted)}
-.tablewrap{overflow-x:auto}
-.warning{
- font-size:10px;line-height:2;color:var(--muted);
- background:#101c2c;border-radius:9px;padding:11px;
- margin-top:10px;
-}
-footer{text-align:center;color:#71849b;padding:15px;font-size:10px}
-@media(max-width:430px){
- .grid{gap:5px}
- .kpi{padding:9px 3px}
- .kpi strong{font-size:16px}
- .kpi small{font-size:9px}
- .formgrid{grid-template-columns:repeat(3,1fr)}
- .details{gap:5px}
- .detail{padding:7px 5px}
-}
+:root{--bg:#08111f;--panel:#111e30;--panel2:#17263a;--text:#eaf2ff;--muted:#91a5bd;--green:#20d69a;--red:#ff647c;--yellow:#ffc857;--blue:#5ca8ff;--border:#263950}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif;font-size:13px}
+header{padding:14px 12px 11px;text-align:center;background:linear-gradient(130deg,#102b48,#0b1728);border-bottom:1px solid var(--border)}
+h1{font-size:20px;margin:0 0 6px}.subtitle{color:var(--muted);font-size:10px;line-height:1.8}
+.container{max-width:850px;margin:auto;padding:9px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:9px}
+.kpi,.box,.card{background:var(--panel);border:1px solid var(--border);border-radius:11px;padding:10px}.kpi{text-align:center}.kpi small{display:block;color:var(--muted);font-size:9px}.kpi strong{display:block;font-size:17px;margin-top:6px}
+.green{color:var(--green)!important}.red{color:var(--red)!important}.yellow{color:var(--yellow)!important}.blue{color:var(--blue)!important}.muted{color:var(--muted)}
+.actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:9px}
+button{border:0;border-radius:9px;padding:11px 4px;font-weight:bold;font-size:11px;cursor:pointer;color:#fff;background:#245b91}button:disabled{opacity:.5}.btn-green{background:#087b60}.btn-orange{background:#9a6720}
+.status{padding:9px;border-radius:9px;background:#102238;margin-bottom:9px;text-align:center;color:var(--muted);line-height:1.8;overflow-wrap:anywhere}
+h3{font-size:13px;margin:2px 0 9px}.box{margin-bottom:9px}.formgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+label{display:block;color:var(--muted);font-size:9px;margin-bottom:5px}input,select{width:100%;background:#091625;color:white;border:1px solid var(--border);border-radius:7px;padding:8px;font-size:12px}
+.filterrow{display:flex;gap:6px;flex-wrap:wrap}.filterrow button{flex:1;background:#243b55}.filterrow button.active{background:#087b60}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin:12px 1px 7px}.section-title span{font-size:10px;color:var(--muted)}
+.card{margin-bottom:7px}.cardhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}.symbol{font-size:14px;font-weight:bold}.badge{padding:5px 7px;border-radius:7px;background:#263b53;font-size:10px}
+.buy{background:#075a45;color:#65f5bd}.sell{background:#702b3a;color:#ff9cac}.wait{background:#51401f;color:#ffdc8c}.ready{background:#17466b;color:#a5d6ff}
+.details{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.detail{background:#0a1727;padding:7px 6px;border-radius:7px;min-width:0}.detail small{display:block;color:var(--muted);font-size:9px}.detail b{display:block;margin-top:4px;font-size:10px;overflow-wrap:anywhere}
+.scorebar{height:5px;background:#25364a;border-radius:8px;margin-top:9px;overflow:hidden}.scorebar span{display:block;height:100%;background:var(--green)}
+.reason{font-size:10px;color:var(--muted);line-height:1.8;margin-top:7px}
+table{width:100%;border-collapse:collapse;font-size:10px}th,td{padding:8px 4px;border-bottom:1px solid var(--border);text-align:center}th{color:var(--muted)}.tablewrap{overflow-x:auto}
+.warning{font-size:10px;line-height:2;color:var(--muted);background:#101c2c;border-radius:9px;padding:10px;margin-top:9px}
+footer{text-align:center;color:#71849b;padding:13px;font-size:10px}
+@media(max-width:430px){.grid{gap:4px}.kpi{padding:8px 2px}.kpi strong{font-size:15px}.kpi small{font-size:8px}.details{gap:4px}.detail{padding:6px 4px}}
 </style>
 </head>
-
 <body>
-
 <header>
-<h1>FAR Trader V6.4 🚀</h1>
-<div class="subtitle">
-Professional Futures Scanner | Bybit USDT Perpetual<br>
-Trend 1H | Structure 15M | Entry 5M
-</div>
+<h1>FAR Trader V6.5 🚀</h1>
+<div class="subtitle">Professional Futures Scanner | Bybit<br>Crypto Perpetual + Gold & Silver<br>Trend 1H | Structure 15M | Entry 5M</div>
 </header>
-
 <main class="container">
-
 <div class="grid">
- <div class="kpi">
-  <small>اتصال</small>
-  <strong id="connection" class="yellow">---</strong>
- </div>
- <div class="kpi">
-  <small>نمادها</small>
-  <strong id="count">0</strong>
- </div>
- <div class="kpi">
-  <small>سیگنال قطعی</small>
-  <strong id="signalCount">0</strong>
- </div>
- <div class="kpi">
-  <small>آماده ورود</small>
-  <strong id="readyCount">0</strong>
- </div>
+ <div class="kpi"><small>اتصال</small><strong id="connection" class="yellow">---</strong></div>
+ <div class="kpi"><small>نمادها</small><strong id="count">0</strong></div>
+ <div class="kpi"><small>سیگنال قطعی</small><strong id="signalCount">0</strong></div>
+ <div class="kpi"><small>آماده ورود</small><strong id="readyCount">0</strong></div>
 </div>
-
 <div class="actions">
  <button id="scanBtn" class="btn-green" onclick="startScan()">🔄 اسکن بازار</button>
  <button id="notifyBtn" class="btn-orange" onclick="enableNotifications()">🔔 اعلان</button>
  <button onclick="window.open('https://www.bybit.com/copyTrading','_blank')">Copy Trading</button>
 </div>
-
-<div class="status" id="status">
-آماده اتصال به بازار Bybit...
-<br>
-بروزرسانی خودکار: هر ۶۰ ثانیه
-</div>
+<div class="status" id="status">آماده اتصال به بازار Bybit...<br>بروزرسانی خودکار: هر ۶۰ ثانیه</div>
 
 <section class="box">
 <h3>⚙️ مدیریت سرمایه</h3>
 <div class="formgrid">
- <div>
-  <label>سرمایه (USDT)</label>
-  <input id="capital" type="number" value="100" min="1">
- </div>
- <div>
-  <label>ریسک درصد</label>
-  <input id="risk" type="number" value="1" min="0.1" max="5" step="0.1">
- </div>
- <div>
-  <label>حداقل امتیاز</label>
-  <select id="minScore">
-   <option value="60">60</option>
-   <option value="65">65</option>
-   <option value="70">70</option>
-   <option value="75">75</option>
-   <option value="80" selected>80</option>
-   <option value="85">85</option>
-   <option value="90">90</option>
-  </select>
- </div>
+ <div><label>سرمایه (USDT)</label><input id="capital" type="number" value="100" min="1"></div>
+ <div><label>ریسک درصد</label><input id="risk" type="number" value="1" min="0.1" max="2" step="0.1"></div>
+ <div><label>حداقل امتیاز</label><select id="minScore"><option>80</option><option value="85" selected>85</option><option>90</option><option>95</option></select></div>
 </div>
-<div class="reason">
-حجم موقعیت بر اساس فاصله ورود تا حد ضرر محاسبه می‌شود.
-کارمزد، لغزش قیمت و مارجین لحاظ نشده‌اند.
-</div>
+<div class="reason">حجم پیشنهادی بر اساس فاصله ورود تا حد ضرر و مشخصات گام حجم محاسبه می‌شود. کارمزد، لغزش قیمت، مارجین و محدودیت‌های منطقه‌ای لحاظ نشده‌اند. اعداد صرفاً تخمینی‌اند.</div>
 </section>
 
 <section class="box">
 <h3>🔎 فیلتر نمایش</h3>
 <div class="filterrow">
- <button class="active" onclick="setFilter('ALL',this)">همه ارزها</button>
- <button onclick="setFilter('BUY',this)">BUY</button>
- <button onclick="setFilter('SELL',this)">SELL</button>
- <button onclick="setFilter('READY',this)">READY</button>
- </div>
+<button class="active" onclick="setFilter('ALL',this)">همه</button>
+<button onclick="setFilter('CRYPTO',this)">کریپتو</button>
+<button onclick="setFilter('METAL',this)">فلزات</button>
+<button onclick="setFilter('BUY',this)">BUY</button>
+<button onclick="setFilter('SELL',this)">SELL</button>
+<button onclick="setFilter('READY',this)">READY</button>
+</div>
 </section>
 
 <section class="box">
-<h3>📊 بازار و سیگنال‌ها</h3>
-<div id="cards">
-<div class="muted">در انتظار اطلاعات بازار...</div>
-</div>
+<div class="section-title"><h3>🪙 بازار ارزهای دیجیتال</h3><span id="cryptoCount">0 نماد</span></div>
+<div id="cryptoCards"><div class="muted">در انتظار داده...</div></div>
+<div class="section-title"><h3>🥇 طلا و نقره</h3><span id="metalCount">0 نماد</span></div>
+<div id="metalCards"><div class="muted">در انتظار داده...</div></div>
 </section>
 
 <section class="box">
 <h3>📋 جدول خلاصه</h3>
-<div class="tablewrap">
-<table>
-<thead>
-<tr>
-<th>نماد</th>
-<th>قیمت</th>
-<th>تغییر</th>
-<th>روند</th>
-<th>وضعیت</th>
-<th>امتیاز</th>
-</tr>
-</thead>
-<tbody id="summary">
-<tr><td colspan="6">در انتظار اطلاعات...</td></tr>
-</tbody>
-</table>
-</div>
+<div class="tablewrap"><table><thead><tr><th>نماد</th><th>قیمت</th><th>تغییر</th><th>روند</th><th>وضعیت</th><th>امتیاز</th></tr></thead><tbody id="summary"><tr><td colspan="6">در انتظار اطلاعات...</td></tr></tbody></table></div>
 </section>
-
 <div class="warning">
-⚠️ مدیریت ریسک و هشدارها<br>
-این برنامه فقط تحلیل و پیشنهاد معاملاتی ارائه می‌کند.<br>
-امتیاز ۹۰ به معنی احتمال موفقیت ۹۰ درصد نیست.<br>
-READY به معنی فرصت در حال شکل‌گیری است، نه دستور ورود.<br>
-هیچ کلید خصوصی API را در این برنامه وارد نکنید.<br>
-سیگنال‌ها را ابتدا در حساب دمو آزمایش کنید.
+⚠️ هشدارهای مهم<br>
+امتیاز ۹۰ به معنی احتمال موفقیت ۹۰ درصد نیست و این نسخه هوش مصنوعی پیش‌بینی‌کننده یا تضمین‌کننده سود نیست.<br>
+سیگنال BUY/SELL فقط پس از بسته‌شدن کندل تأییدی صادر می‌شود؛ READY به معنی فرصت در حال شکل‌گیری است، نه دستور ورود.<br>
+نمادهای فلزات ممکن است به حساب واجد شرایط، احراز هویت و پذیرش توافق‌نامه‌های مربوط نیاز داشته باشند و در همه کشورها در دسترس نیستند.<br>
+هیچ کلید خصوصی API وارد نکنید. ابتدا همه سیگنال‌ها را در حساب دمو آزمایش کنید.
 </div>
-
-<footer>FAR Trader V6.4 Professional</footer>
+<footer>FAR Trader V6.5 Professional</footer>
 </main>
-
 <script>
 "use strict";
+const CORE=["BTCUSDT","ETHUSDT","SOLUSDT","XRPUSDT"];
+const METALS=["XAUUSDT","XAGUSDT"];
+const MAX_EXTRA=20,REFRESH_MS=60000,CONCURRENCY=3;
+const HOSTS=["https://api.bybit.com","https://api.bytick.com"];
+let marketData=[],currentFilter="ALL",scanning=false,lastScan=0,notified=new Set();
 
-/* تنظیمات اصلی */
-const CORE = ["BTCUSDT","ETHUSDT","SOLUSDT","XRPUSDT"];
-const MAX_EXTRA = 20;
-const REFRESH_MS = 60000;
-const CONCURRENCY = 3;
-
-const HOSTS = [
- "https://api.bybit.com",
- "https://api.bytick.com"
-];
-
-let marketData = [];
-let currentFilter = "ALL";
-let scanning = false;
-let lastScan = 0;
-let notified = new Set();
-
-/* ابزارهای عمومی */
-const $ = id => document.getElementById(id);
-
-function number(v,d=4){
- const n=Number(v);
- if(!Number.isFinite(n)) return "--";
- return n.toLocaleString("en-US",{maximumFractionDigits:d});
-}
-
-function sleep(ms){
- return new Promise(resolve=>setTimeout(resolve,ms));
-}
-
-function setStatus(message){
- $("status").innerHTML = message;
-}
-
+const $=id=>document.getElementById(id);
+function number(v,d=4){const n=Number(v);return Number.isFinite(n)?n.toLocaleString("en-US",{maximumFractionDigits:d}):"--"}
+function setStatus(s){$("status").innerHTML=s}
+function escapeHTML(v){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 async function requestJSON(path){
- let lastError = "خطای اتصال";
-
+ let last="خطای اتصال";
  for(const host of HOSTS){
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
   try{
-   const controller = new AbortController();
-   const timer = setTimeout(()=>controller.abort(),12000);
-
-   const response = await fetch(host+path,{
-    method:"GET",
-    cache:"no-store",
-    signal:controller.signal
-   });
-
-   clearTimeout(timer);
-
-   if(!response.ok) throw new Error("HTTP "+response.status);
-
-   const data = await response.json();
-
-   if(data.retCode !== 0){
-    throw new Error(data.retMsg || "Bybit API error");
-   }
-
-   return data.result;
-
-  }catch(e){
-   lastError = e.message || "Network error";
-  }
+   const r=await fetch(host+path,{cache:"no-store",signal:controller.signal});
+   if(!r.ok)throw new Error("HTTP "+r.status);
+   const j=await r.json();
+   if(j.retCode!==0)throw new Error(j.retMsg||"Bybit API error");
+   clearTimeout(timer);return j.result;
+  }catch(e){clearTimeout(timer);last=e.message||"Network error"}
  }
-
- throw new Error(lastError);
+ throw new Error(last);
 }
-
-/* دریافت بازار */
-async function getTickers(){
- const result = await requestJSON(
-  "/v5/market/tickers?category=linear"
- );
-
- return result.list || [];
+async function getTickers(category){
+ const r=await requestJSON("/v5/market/tickers?category="+category);
+ return r.list||[];
 }
-
-function chooseSymbols(tickers){
- const valid = tickers
-  .filter(t =>
-   t.symbol &&
-   t.symbol.endsWith("USDT") &&
-   Number(t.lastPrice)>0 &&
-   Number(t.turnover24h)>0
-  )
-  .sort((a,b)=>Number(b.turnover24h)-Number(a.turnover24h));
-
- const map = new Map(valid.map(t=>[t.symbol,t]));
- const chosen = [];
-
- CORE.forEach(symbol=>{
-  if(map.has(symbol)) chosen.push(map.get(symbol));
- });
-
- let extras = valid.filter(t=>!CORE.includes(t.symbol));
- extras = extras.slice(0,MAX_EXTRA);
-
- extras.forEach(t=>{
-  if(!chosen.some(x=>x.symbol===t.symbol)) chosen.push(t);
- });
-
- return chosen;
+async function getInstruments(){
+ let all=[],cursor="";
+ for(let page=0;page<3;page++){
+  let path="/v5/market/instruments-info?category=linear&limit=1000";
+  if(cursor)path+="&cursor="+encodeURIComponent(cursor);
+  const r=await requestJSON(path);
+  all=all.concat(r.list||[]);
+  cursor=r.nextPageCursor||"";
+  if(!cursor)break;
+ }
+ return all;
 }
-
-/* دریافت کندل */
+/* تشخیص کریپتو با تطبیق baseCoin قرارداد فیوچرز با نمادهای بازار Spot؛
+   فلزات فقط از فهرست مجاز مستقل وارد می‌شوند. */
+async function chooseMarkets(){
+ const [linear,spot,instruments]=await Promise.all([getTickers("linear"),getTickers("spot"),getInstruments()]);
+ const instMap=new Map(instruments.map(x=>[x.symbol,x]));
+ const spotBases=new Set(spot.map(x=>String(x.symbol||"").replace(/USDT$/,"")).filter(Boolean));
+ const tickMap=new Map(linear.map(x=>[x.symbol,x]));
+ const crypto=[];
+ for(const t of linear){
+  const s=t.symbol||"",ins=instMap.get(s);
+  if(!s.endsWith("USDT")||METALS.includes(s)||!ins)continue;
+  const base=ins.baseCoin||s.slice(0,-4);
+  if(!CORE.includes(s)&&!spotBases.has(base))continue;
+  if(Number(t.lastPrice)<=0||Number(t.turnover24h)<=0)continue;
+  crypto.push(t);
+ }
+ const selected=[];
+ CORE.forEach(s=>{const t=tickMap.get(s);if(t&&crypto.some(x=>x.symbol===s))selected.push(t)});
+ crypto.sort((a,b)=>Number(b.turnover24h)-Number(a.turnover24h));
+ const extras=crypto.filter(t=>!CORE.includes(t.symbol)).slice(0,MAX_EXTRA);
+ extras.forEach(t=>{if(!selected.some(x=>x.symbol===t.symbol))selected.push(t)});
+ const metals=METALS.map(s=>tickMap.get(s)).filter(t=>t&&Number(t.lastPrice)>0);
+ return {crypto:selected,metals,instMap};
+}
 async function getCandles(symbol,interval){
- const path =
-  "/v5/market/kline?category=linear"+
-  "&symbol="+encodeURIComponent(symbol)+
-  "&interval="+interval+
-  "&limit=100";
-
- const result = await requestJSON(path);
- const raw = result.list || [];
-
- const candles = raw.map(x=>({
-  time:Number(x[0]),
-  open:Number(x[1]),
-  high:Number(x[2]),
-  low:Number(x[3]),
-  close:Number(x[4]),
-  volume:Number(x[5]),
-  turnover:Number(x[6])
- })).reverse();
-
- /* حذف کندل در حال تشکیل */
- if(candles.length>2) candles.pop();
-
- return candles;
+ const p="/v5/market/kline?category=linear&symbol="+encodeURIComponent(symbol)+"&interval="+interval+"&limit=120";
+ const r=await requestJSON(p);
+ const a=(r.list||[]).map(x=>({time:+x[0],open:+x[1],high:+x[2],low:+x[3],close:+x[4],volume:+x[5],turnover:+x[6]})).reverse();
+ if(a.length>2)a.pop();
+ return a;
 }
-
-/* اندیکاتورها */
-function ema(values,period){
- if(values.length<period) return null;
-
- const k=2/(period+1);
- let value=values.slice(0,period)
-  .reduce((a,b)=>a+b,0)/period;
-
- for(let i=period;i<values.length;i++){
-  value=values[i]*k+value*(1-k);
- }
-
- return value;
+function ema(v,n){if(v.length<n)return null;const k=2/(n+1);let x=v.slice(0,n).reduce((a,b)=>a+b,0)/n;for(let i=n;i<v.length;i++)x=v[i]*k+x*(1-k);return x}
+function rsi(v,n=14){
+ if(v.length<n+1)return 50;
+ let gain=0,loss=0;
+ for(let i=v.length-n;i<v.length;i++){const d=v[i]-v[i-1];if(d>0)gain+=d;else loss-=d}
+ if(loss===0)return gain===0?50:100;
+ const rs=gain/loss;return 100-100/(1+rs);
 }
-
-function rsi(values,period=14){
- if(values.length<period+2) return 50;
-
- let gains=0,losses=0;
-
- for(let i=values.length-period;i<values.length;i++){
-  const diff=values[i]-values[i-1];
-  if(diff>0) gains+=diff;
-  else losses-=diff;
- }
-
- if(losses===0) return 100;
-
- const rs=(gains/period)/(losses/period);
- return 100-(100/(1+rs));
+function atr(c,n=14){
+ if(c.length<n+1)return 0;let sum=0;
+ for(let i=c.length-n;i<c.length;i++){const p=c[i-1],x=c[i];sum+=Math.max(x.high-x.low,Math.abs(x.high-p.close),Math.abs(x.low-p.close))}
+ return sum/n;
 }
-
-function atr(candles,period=14){
- if(candles.length<period+1) return 0;
-
- const values=[];
-
- for(let i=candles.length-period;i<candles.length;i++){
-  const c=candles[i];
-  const p=candles[i-1];
-
-  values.push(Math.max(
-   c.high-c.low,
-   Math.abs(c.high-p.close),
-   Math.abs(c.low-p.close)
-  ));
- }
-
- return values.reduce((a,b)=>a+b,0)/values.length;
-}
-
-function macd(values){
- const fast=ema(values,12);
- const slow=ema(values,26);
-
- if(fast===null || slow===null) return 0;
-
- return fast-slow;
-}
-
-function getLevels(candles){
- const data=candles.slice(-30);
-
- return {
-  support:Math.min(...data.map(c=>c.low)),
-  resistance:Math.max(...data.map(c=>c.high))
- };
-}
-
-/* تحلیل یک نماد */
-async function analyze(ticker){
+function macd(v){const a=ema(v,12),b=ema(v,26);return a===null||b===null?0:a-b}
+function levels(c){const a=c.slice(-30);return {support:Math.min(...a.map(x=>x.low)),resistance:Math.max(...a.map(x=>x.high))}}
+function roundDown(value,step){if(!(step>0))return value;const decimals=(String(step).split(".")[1]||"").length;return Number((Math.floor(value/step+1e-10)*step).toFixed(Math.min(12,decimals+2)))}
+async function analyze(ticker,kind,inst){
  const symbol=ticker.symbol;
-
- const results=await Promise.all([
-  getCandles(symbol,"60"),
-  getCandles(symbol,"15"),
-  getCandles(symbol,"5")
- ]);
-
- const h1=results[0];
- const m15=results[1];
- const m5=results[2];
-
- if(h1.length<55 || m15.length<30 || m5.length<30){
-  throw new Error("داده کندل کافی نیست");
- }
-
- const close1=h1.map(c=>c.close);
- const close5=m5.map(c=>c.close);
-
- const price=Number(ticker.lastPrice);
- const change=Number(ticker.price24hPcnt)*100;
- const turnover=Number(ticker.turnover24h);
-
- const ema20h=ema(close1,20);
- const ema50h=ema(close1,50);
-
+ const [h1,m15,m5]=await Promise.all([getCandles(symbol,"60"),getCandles(symbol,"15"),getCandles(symbol,"5")]);
+ if(h1.length<55||m15.length<30||m5.length<35)throw new Error("داده کندل کافی نیست");
+ const c1=h1.map(x=>x.close),c5=m5.map(x=>x.close),price=+ticker.lastPrice;
+ const change=+(ticker.price24hPcnt||0)*100,turnover=+(ticker.turnover24h||0);
+ const e20=ema(c1,20),e50=ema(c1,50),last1=c1.at(-1);
  let trend="NEUTRAL";
-
- if(ema20h>ema50h && close1.at(-1)>ema20h){
-  trend="BULLISH";
- }else if(ema20h<ema50h && close1.at(-1)<ema20h){
-  trend="BEARISH";
- }
-
- const levels=getLevels(m15);
- const atr5=atr(m5);
- const rsi5=rsi(close5);
- const macd5=macd(close5);
-
- const last=m5.at(-1);
- const prev=m5.at(-2);
-
- const ema20_5=ema(close5,20);
- const ema50_5=ema(close5,50);
-
- const nearEMA=atr5>0 &&
-  Math.abs(last.close-ema20_5)<atr5*1.1;
-
- const bullishCandle=
-  last.close>last.open && last.close>prev.high;
-
- const bearishCandle=
-  last.close<last.open && last.close<prev.low;
-
- const volumeAvg=m5.slice(-21,-1)
-  .reduce((a,c)=>a+c.volume,0)/20;
-
- const volumeOK=last.volume>volumeAvg*1.1;
-
- let direction="WAIT";
- let score=0;
- let reasons=[];
-
- if(trend==="BULLISH"){
-  direction="BUY";
-  score+=25;
-  reasons.push("روند صعودی 1H");
- }else if(trend==="BEARISH"){
-  direction="SELL";
-  score+=25;
-  reasons.push("روند نزولی 1H");
- }else{
-  reasons.push("روند یک‌ساعته نامشخص");
- }
-
- if(direction==="BUY"){
-  if(ema20_5>ema50_5){
-   score+=15;reasons.push("EMA کوتاه‌مدت صعودی");
-  }
-  if(rsi5>=48 && rsi5<=68){
-   score+=12;reasons.push("RSI مناسب خرید");
-  }
-  if(macd5>0){
-   score+=10;reasons.push("MACD مثبت");
-  }
-  if(bullishCandle){
-   score+=18;reasons.push("تأیید کندل صعودی");
-  }
-  if(nearEMA){
-   score+=10;reasons.push("پولبک نزدیک EMA20");
-  }
-  if(volumeOK){
-   score+=10;reasons.push("افزایش حجم");
-  }
-  if(price>levels.resistance){
-   score+=5;reasons.push("شکست مقاومت");
-  }
- }
-
- if(direction==="SELL"){
-  if(ema20_5<ema50_5){
-   score+=15;reasons.push("EMA کوتاه‌مدت نزولی");
-  }
-  if(rsi5>=32 && rsi5<=52){
-   score+=12;reasons.push("RSI مناسب فروش");
-  }
-  if(macd5<0){
-   score+=10;reasons.push("MACD منفی");
-  }
-  if(bearishCandle){
-   score+=18;reasons.push("تأیید کندل نزولی");
-  }
-  if(nearEMA){
-   score+=10;reasons.push("پولبک نزدیک EMA20");
-  }
-  if(volumeOK){
-   score+=10;reasons.push("افزایش حجم");
-  }
-  if(price<levels.support){
-   score+=5;reasons.push("شکست حمایت");
-  }
- }
-
- score=Math.min(95,score);
-
- const minScore=Number($("minScore").value);
-
+ if(e20>e50&&last1>e20)trend="BULLISH";
+ else if(e20<e50&&last1<e20)trend="BEARISH";
+ const lv=levels(m15),a5=atr(m5),r=rsi(c5),m=macd(c5),last=m5.at(-1),prev=m5.at(-2);
+ const e20m=ema(c5,20),e50m=ema(c5,50);
+ const near=a5>0&&Math.abs(last.close-e20m)<a5*.8;
+ const bull=last.close>last.open&&last.close>prev.high;
+ const bear=last.close<last.open&&last.close<prev.low;
+ const vAvg=m5.slice(-21,-1).reduce((s,x)=>s+x.volume,0)/20;
+ const vol= vAvg>0&&last.volume>vAvg*1.25;
+ let direction=trend==="BULLISH"?"BUY":trend==="BEARISH"?"SELL":"WAIT",score=0,reasons=[];
+ if(direction==="BUY"||direction==="SELL"){
+  score+=20;reasons.push(direction==="BUY"?"روند صعودی 1H":"روند نزولی 1H");
+  if(direction==="BUY"&&e20m>e50m||direction==="SELL"&&e20m<e50m){score+=15;reasons.push("هم‌جهتی EMA در 5M")}
+  const rsiOK=direction==="BUY"?(r>=48&&r<=68):(r>=32&&r<=52);
+  if(rsiOK){score+=12;reasons.push("RSI در محدوده مناسب")}
+  else if(direction==="BUY"&&r>72||direction==="SELL"&&r<28){score-=12;reasons.push("هشدار اشباع؛ احتمال ورود دیرهنگام")}
+  if(direction==="BUY"&&m>0||direction==="SELL"&&m<0){score+=10;reasons.push("هم‌جهتی MACD")}
+  if(direction==="BUY"&&bull||direction==="SELL"&&bear){score+=18;reasons.push("تأیید کندل بسته‌شده")}
+  if(near){score+=8;reasons.push("پولبک نزدیک EMA20")}
+  if(vol){score+=10;reasons.push("حجم بالاتر از میانگین")}
+  const breakout=direction==="BUY"?last.close>lv.resistance:last.close<lv.support;
+  if(breakout){score+=5;reasons.push("شکست سطح 15M")}
+  if(direction==="BUY"&&r>78||direction==="SELL"&&r<22){score-=15;reasons.push("فیلتر سخت‌گیرانه اشباع RSI")}
+ }else reasons.push("روند یک‌ساعته نامشخص");
+ score=Math.max(0,Math.min(95,score));
+ const min=+ $("minScore").value;
  let signal="WAIT";
-
- if(direction!=="WAIT" && score>=minScore &&
-    (direction==="BUY"?bullishCandle:bearishCandle)){
-  signal=direction;
- }else if(direction!=="WAIT" && score>=minScore-8 &&
-          nearEMA){
-  signal="READY";
- }
-
- let entry=price;
- let sl=0,tp1=0,tp2=0,tp3=0;
- let quantity=0,notional=0;
-
- if(direction==="BUY" || direction==="SELL"){
-  const riskDistance=Math.max(atr5*1.5,price*0.002);
-
-  if(direction==="BUY"){
-   sl=Math.min(price-riskDistance,levels.support-atr5*0.2);
-   if(sl>=price) sl=price-riskDistance;
-   const risk=price-sl;
-   tp1=price+risk*1.5;
-   tp2=price+risk*2;
-   tp3=price+risk*3;
-  }else{
-   sl=Math.max(price+riskDistance,levels.resistance+atr5*0.2);
-   if(sl<=price) sl=price+riskDistance;
-   const risk=sl-price;
-   tp1=price-risk*1.5;
-   tp2=price-risk*2;
-   tp3=price-risk*3;
-  }
-
-  const capital=Math.max(0,Number($("capital").value)||0);
-  const riskPercent=Math.max(0,Number($("risk").value)||0);
-  const riskMoney=capital*riskPercent/100;
-
-  const distance=Math.abs(entry-sl);
-
+ const candleOK=direction==="BUY"?bull:direction==="SELL"?bear:false;
+ if(direction!=="WAIT"&&score>=min&&candleOK&&vol&&!(direction==="BUY"&&r>78)&&!(direction==="SELL"&&r<22))signal=direction;
+ else if(direction!=="WAIT"&&score>=min-5&&near&&score>=75)signal="READY";
+ let entry=price,sl=0,tp1=0,tp2=0,tp3=0,qty=0,notional=0;
+ if(direction!=="WAIT"&&a5>0){
+  const dist=Math.max(a5*1.5,price*.0025);
+  if(direction==="BUY"){sl=Math.min(price-dist,lv.support-a5*.15);if(sl>=price)sl=price-dist;const risk=price-sl;tp1=price+risk*1.5;tp2=price+risk*2;tp3=price+risk*3}
+  else{sl=Math.max(price+dist,lv.resistance+a5*.15);if(sl<=price)sl=price+dist;const risk=sl-price;tp1=price-risk*1.5;tp2=price-risk*2;tp3=price-risk*3}
+  const capital=Math.max(0,+$("capital").value||0),riskPct=Math.min(2,Math.max(.1,+$("risk").value||0));
+  const riskMoney=capital*riskPct/100,distance=Math.abs(entry-sl);
   if(distance>0){
-   quantity=riskMoney/distance;
-   notional=quantity*entry;
+   let rawQty=riskMoney/distance;
+   const lot=inst&&inst.lotSizeFilter||{},step=+(lot.qtyStep||0),minQty=+(lot.minOrderQty||0),maxQty=+(lot.maxOrderQty||Infinity);
+   qty=roundDown(Math.min(rawQty,maxQty),step);
+   if(minQty&&qty<minQty)qty=0;
+   const minNotional=+(lot.minNotionalValue||0);
+   notional=qty*entry;
+   if(minNotional&&notional<minNotional){qty=0;notional=0}
   }
  }
-
- return {
-  symbol,price,change,turnover,trend,direction,
-  signal,score,rsi5,levels,entry,sl,tp1,tp2,tp3,
-  quantity,notional,reasons,atr5
- };
+ return {symbol,kind,price,change,turnover,trend,direction,signal,score,rsi:r,levels:lv,entry,sl,tp1,tp2,tp3,quantity:qty,notional,reasons,atr:a5};
 }
-
-/* اجرای همزمان کنترل‌شده */
-async function mapLimit(items,limit,callback){
- const results=new Array(items.length);
- let index=0;
-
- async function worker(){
-  while(true){
-   const i=index++;
-   if(i>=items.length) return;
-
-   try{
-    results[i]=await callback(items[i]);
-   }catch(e){
-    results[i]={
-     symbol:items[i].symbol,
-     error:e.message||"خطا",
-     signal:"ERROR"
-    };
-   }
-  }
- }
-
- const workers=[];
-
- for(let i=0;i<Math.min(limit,items.length);i++){
-  workers.push(worker());
- }
-
- await Promise.all(workers);
- return results;
+async function mapLimit(items,limit,fn){
+ const out=new Array(items.length);let next=0;
+ async function worker(){while(true){const i=next++;if(i>=items.length)return;try{out[i]=await fn(items[i])}catch(e){out[i]={symbol:items[i].symbol,kind:items[i].kind,error:e.message||"خطا",signal:"ERROR"}}}}
+ await Promise.all(Array.from({length:Math.min(limit,items.length)},worker));return out;
 }
-
-/* اسکن اصلی */
 async function startScan(){
- if(scanning) return;
-
- scanning=true;
- $("scanBtn").disabled=true;
- $("connection").textContent="...";
- $("connection").className="yellow";
-
- setStatus("در حال دریافت اطلاعات بازار Bybit...");
-
+ if(scanning)return;scanning=true;$("scanBtn").disabled=true;$("connection").textContent="...";$("connection").className="yellow";
+ setStatus("در حال دریافت فهرست بازار و مشخصات قراردادها...");
  try{
-  const tickers=await getTickers();
-
-  if(!tickers.length) throw new Error("فهرست بازار خالی است");
-
-  $("connection").textContent="وصل";
-  $("connection").className="green";
-
-  const symbols=chooseSymbols(tickers);
-
-  $("count").textContent=symbols.length;
-
-  setStatus(
-   "اتصال برقرار شد ✅<br>"+
-   "در حال تحلیل "+symbols.length+" نماد فیوچرز..."
-  );
-
-  const results=await mapLimit(
-   symbols,
-   CONCURRENCY,
-   analyze
-  );
-
-  marketData=results.filter(x=>x && !x.error);
-
-  const errors=results.length-marketData.length;
-
-  marketData.sort((a,b)=>{
-   const priority={
-    BUY:4,SELL:4,READY:3,WAIT:1,ERROR:0
-   };
-   return (priority[b.signal]||0)-(priority[a.signal]||0) ||
-    b.score-a.score ||
-    b.turnover-a.turnover;
-  });
-
-  lastScan=Date.now();
-
-  render();
-
-  const signals=marketData.filter(
-   x=>x.signal==="BUY" || x.signal==="SELL"
-  ).length;
-
-  const ready=marketData.filter(
-   x=>x.signal==="READY"
-  ).length;
-
-  setStatus(
-   "اتصال برقرار است ✅<br>"+
-   "آخرین بروزرسانی: "+new Date().toLocaleTimeString("fa-IR")+
-   "<br>تحلیل موفق: "+marketData.length+
-   " | خطای نمادها: "+errors+
-   "<br>اسکن بعدی: ۶۰ ثانیه دیگر"
-  );
-
-  checkAlerts();
-
- }catch(e){
-  $("connection").textContent="خطا";
-  $("connection").className="red";
-
-  setStatus(
-   "❌ اتصال یا دریافت اطلاعات ناموفق بود.<br>"+
-   "علت: "+escapeHTML(e.message)+
-   "<br>ممکن است دسترسی شبکه به API بای‌بیت محدود باشد."
-  );
-
- }finally{
-  scanning=false;
-  $("scanBtn").disabled=false;
- }
+  const {crypto,metals,instMap}=await chooseMarkets();
+  if(!crypto.length&&!metals.length)throw new Error("نمادی از بازارهای مجاز پیدا نشد");
+  const jobs=[...crypto.map(t=>({...t,kind:"CRYPTO"})),...metals.map(t=>({...t,kind:"METAL"}))];
+  $("connection").textContent="وصل";$("connection").className="green";$("count").textContent=jobs.length;
+  setStatus("اتصال برقرار شد ✅<br>در حال تحلیل "+jobs.length+" نماد مجاز...");
+  const results=await mapLimit(jobs,CONCURRENCY,t=>analyze(t,t.kind,instMap.get(t.symbol)));
+  marketData=results;
+  const errors=results.filter(x=>x.error).length;
+  marketData.sort((a,b)=>({BUY:5,SELL:5,READY:4,WAIT:1,ERROR:0}[b.signal]||0)-({BUY:5,SELL:5,READY:4,WAIT:1,ERROR:0}[a.signal]||0)||b.score-a.score||b.turnover-a.turnover);
+  lastScan=Date.now();render();checkAlerts();
+  const signals=marketData.filter(x=>x.signal==="BUY"||x.signal==="SELL").length,ready=marketData.filter(x=>x.signal==="READY").length;
+  setStatus("اتصال برقرار است ✅<br>آخرین بروزرسانی: "+new Date().toLocaleTimeString("fa-IR")+"<br>تحلیل موفق: "+(results.length-errors)+" | خطا: "+errors+"<br>کریپتو: "+crypto.length+" | فلزات: "+metals.length+"<br>سیگنال قطعی: "+signals+" | آماده ورود: "+ready+"<br>اسکن بعدی: ۶۰ ثانیه دیگر");
+ }catch(e){$("connection").textContent="خطا";$("connection").className="red";setStatus("❌ دریافت اطلاعات ناموفق بود.<br>علت: "+escapeHTML(e.message)+"<br>اگر API فلزات برای حساب/منطقه شما فعال نباشد، ممکن است داده آن‌ها دریافت نشود.")}
+ finally{scanning=false;$("scanBtn").disabled=false}
 }
-
-/* جلوگیری از نمایش کد HTML ناخواسته */
-function escapeHTML(value){
- return String(value).replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",
-  '"':"&quot;","'":"&#39;"
- }[c]));
+function badge(s){if(s==="BUY")return '<span class="badge buy">BUY</span>';if(s==="SELL")return '<span class="badge sell">SELL</span>';if(s==="READY")return '<span class="badge ready">READY</span>';if(s==="ERROR")return '<span class="badge wait">ERROR</span>';return '<span class="badge wait">WAIT</span>'}
+function cardHTML(x){
+ if(x.error)return '<div class="card"><div class="cardhead"><b>'+escapeHTML(x.symbol)+'</b>'+badge("ERROR")+'</div><div class="reason">'+escapeHTML(x.error)+'</div></div>';
+ const p=x.price,dp=p<.01?7:p<1?6:p<100?4:2,tc=x.trend==="BULLISH"?"green":x.trend==="BEARISH"?"red":"yellow";
+ return `<div class="card"><div class="cardhead"><div><div class="symbol">${escapeHTML(x.symbol)}</div><div class="muted" style="margin-top:4px">${number(p,dp)} USDT</div></div><div>${badge(x.signal)}<div style="text-align:center;margin-top:5px">امتیاز <b>${x.score}/100</b></div></div></div>
+ <div class="details">
+ <div class="detail"><small>روند 1H</small><b class="${tc}">${x.trend}</b></div><div class="detail"><small>RSI 5M</small><b>${number(x.rsi,1)}</b></div><div class="detail"><small>تغییر ۲۴ ساعت</small><b class="${x.change>=0?'green':'red'}">${number(x.change,2)}%</b></div>
+ <div class="detail"><small>ورود نظری</small><b>${number(x.entry,dp)}</b></div><div class="detail"><small>حد ضرر SL</small><b class="red">${number(x.sl,dp)}</b></div><div class="detail"><small>حد سود TP1</small><b class="green">${number(x.tp1,dp)}</b></div>
+ <div class="detail"><small>TP2</small><b>${number(x.tp2,dp)}</b></div><div class="detail"><small>TP3</small><b>${number(x.tp3,dp)}</b></div><div class="detail"><small>حجم نظری USDT</small><b>${number(x.notional,2)}</b></div></div>
+ <div class="scorebar"><span style="width:${x.score}%"></span></div><div class="reason">${x.reasons.map(escapeHTML).join(" | ")}<br>حجم ۲۴ ساعته: ${number(x.turnover/1e6,1)} میلیون USDT<br>تعداد واحد نظری: ${number(x.quantity,6)}<br>${x.quantity===0&&x.direction!=="WAIT"?"حجم صفر: ممکن است حداقل حجم/ارزش سفارش از ریسک مجاز بیشتر باشد.":""}</div></div>`;
 }
-
-function signalBadge(signal){
- if(signal==="BUY") return '<span class="badge buy">BUY</span>';
- if(signal==="SELL") return '<span class="badge sell">SELL</span>';
- if(signal==="READY") return '<span class="badge ready">READY</span>';
- return '<span class="badge wait">WAIT</span>';
-}
-
+function matchesFilter(x){if(currentFilter==="ALL")return true;if(currentFilter==="CRYPTO"||currentFilter==="METAL")return x.kind===currentFilter;return x.signal===currentFilter}
 function render(){
- const filtered=marketData.filter(x=>{
-  if(currentFilter==="ALL") return true;
-  return x.signal===currentFilter;
- });
-
- $("signalCount").textContent=marketData.filter(
-  x=>x.signal==="BUY" || x.signal==="SELL"
- ).length;
-
- $("readyCount").textContent=marketData.filter(
-  x=>x.signal==="READY"
- ).length;
-
- if(!filtered.length){
-  $("cards").innerHTML='<div class="muted">موردی برای نمایش وجود ندارد.</div>';
- }else{
-  $("cards").innerHTML=filtered.map(x=>{
-   const trendClass=x.trend==="BULLISH"?"green":
-    x.trend==="BEARISH"?"red":"yellow";
-
-   if(x.error){
-    return `
-    <div class="card">
-     <div class="cardhead">
-      <span class="symbol">${escapeHTML(x.symbol)}</span>
-      <span class="badge wait">خطای داده</span>
-     </div>
-     <div class="reason">${escapeHTML(x.error)}</div>
-    </div>`;
-   }
-
-   const price=x.price;
-   const precision=price<1?6:price<100?4:2;
-
-   return `
-   <div class="card">
-    <div class="cardhead">
-     <div>
-      <div class="symbol">${escapeHTML(x.symbol)}</div>
-      <div class="muted" style="margin-top:5px">
-       ${number(x.price,precision)} USDT
-      </div>
-     </div>
-     <div>
-      ${signalBadge(x.signal)}
-      <div style="text-align:center;margin-top:5px">
-       امتیاز <b>${x.score}/100</b>
-      </div>
-     </div>
-    </div>
-
-    <div class="details">
-     <div class="detail">
-      <small>روند 1H</small>
-      <b class="${trendClass}">${x.trend}</b>
-     </div>
-     <div class="detail">
-      <small>RSI 5M</small>
-      <b>${number(x.rsi5,1)}</b>
-     </div>
-     <div class="detail">
-      <small>تغییر ۲۴ ساعت</small>
-      <b class="${x.change>=0?'green':'red'}">${number(x.change,2)}%</b>
-     </div>
-     <div class="detail">
-      <small>ورود نظری</small>
-      <b>${number(x.entry,precision)}</b>
-     </div>
-     <div class="detail">
-      <small>حد ضرر SL</small>
-      <b class="red">${number(x.sl,precision)}</b>
-     </div>
-     <div class="detail">
-      <small>حد سود TP1</small>
-      <b class="green">${number(x.tp1,precision)}</b>
-     </div>
-     <div class="detail">
-      <small>TP2</small>
-      <b>${number(x.tp2,precision)}</b>
-     </div>
-     <div class="detail">
-      <small>TP3</small>
-      <b>${number(x.tp3,precision)}</b>
-     </div>
-     <div class="detail">
-      <small>حجم نظری USDT</small>
-      <b>${number(x.notional,2)}</b>
-     </div>
-    </div>
-
-    <div class="scorebar">
-     <span style="width:${x.score}%"></span>
-    </div>
-    <div class="reason">
-     ${x.reasons.map(escapeHTML).join(" | ")}
-     <br>حجم ۲۴ ساعته: ${number(x.turnover/1000000,1)} میلیون USDT
-     <br>تعداد واحد نظری: ${number(x.quantity,5)}
-    </div>
-   </div>`;
-  }).join("");
- }
-
- $("summary").innerHTML=marketData.map(x=>{
-  if(x.error){
-   return `<tr>
-    <td>${escapeHTML(x.symbol)}</td>
-    <td colspan="5">خطای دریافت داده</td>
-   </tr>`;
-  }
-
-  const trendClass=x.trend==="BULLISH"?"green":
-   x.trend==="BEARISH"?"red":"yellow";
-
-  return `<tr>
-   <td>${escapeHTML(x.symbol)}</td>
-   <td>${number(x.price,x.price<1?6:3)}</td>
-   <td class="${x.change>=0?'green':'red'}">${number(x.change,2)}%</td>
-   <td class="${trendClass}">${x.trend}</td>
-   <td>${escapeHTML(x.signal)}</td>
-   <td>${x.score}</td>
-  </tr>`;
- }).join("") || '<tr><td colspan="6">اطلاعاتی موجود نیست</td></tr>';
+ const visible=marketData.filter(matchesFilter),crypto=visible.filter(x=>x.kind==="CRYPTO"),metals=visible.filter(x=>x.kind==="METAL");
+ $("cryptoCards").innerHTML=crypto.length?crypto.map(cardHTML).join(""):'<div class="muted">موردی برای نمایش نیست.</div>';
+ $("metalCards").innerHTML=metals.length?metals.map(cardHTML).join(""):'<div class="muted">موردی برای نمایش نیست.</div>';
+ $("cryptoCount").textContent=crypto.length+" نماد";$("metalCount").textContent=metals.length+" نماد";
+ $("signalCount").textContent=marketData.filter(x=>x.signal==="BUY"||x.signal==="SELL").length;
+ $("readyCount").textContent=marketData.filter(x=>x.signal==="READY").length;
+ $("summary").innerHTML=visible.map(x=>{if(x.error)return `<tr><td>${escapeHTML(x.symbol)}</td><td colspan="5">خطای داده</td></tr>`;const tc=x.trend==="BULLISH"?"green":x.trend==="BEARISH"?"red":"yellow";return `<tr><td>${escapeHTML(x.symbol)}</td><td>${number(x.price,x.price<1?6:3)}</td><td class="${x.change>=0?'green':'red'}">${number(x.change,2)}%</td><td class="${tc}">${x.trend}</td><td>${escapeHTML(x.signal)}</td><td>${x.score}</td></tr>`}).join("")||'<tr><td colspan="6">اطلاعاتی موجود نیست</td></tr>';
 }
-
-/* فیلتر */
-function setFilter(filter,button){
- currentFilter=filter;
-
- document.querySelectorAll(".filterrow button")
-  .forEach(b=>b.classList.remove("active"));
-
- button.classList.add("active");
- render();
-}
-
-/* اعلان مرورگر */
+function setFilter(f,b){currentFilter=f;document.querySelectorAll(".filterrow button").forEach(x=>x.classList.remove("active"));b.classList.add("active");render()}
 async function enableNotifications(){
- if(!("Notification" in window)){
-  alert("مرورگر شما اعلان را پشتیبانی نمی‌کند.");
-  return;
- }
-
- try{
-  const permission=await Notification.requestPermission();
-
-  if(permission==="granted"){
-   alert("اعلان‌ها فعال شدند ✅");
-   $("notifyBtn").textContent="🔔 فعال";
-  }else{
-   alert("مجوز اعلان داده نشد.");
-  }
- }catch(e){
-  alert("فعال‌سازی اعلان ناموفق بود.");
- }
+ if(!("Notification"in window)){alert("مرورگر اعلان را پشتیبانی نمی‌کند.");return}
+ try{const p=await Notification.requestPermission();if(p==="granted"){$("notifyBtn").textContent="🔔 فعال";alert("اعلان‌ها فعال شدند ✅")}else alert("مجوز اعلان داده نشد.")}
+ catch(e){alert("فعال‌سازی اعلان ناموفق بود.")}
 }
-
 function checkAlerts(){
- if(!("Notification" in window)) return;
- if(Notification.permission!=="granted") return;
-
- marketData.forEach(x=>{
-  if(x.signal!=="BUY" && x.signal!=="SELL") return;
-
-  const key=x.symbol+"_"+x.signal+"_"+Math.floor(x.price/x.atr5);
-
-  if(notified.has(key)) return;
-
-  notified.add(key);
-
-  try{
-   new Notification("FAR Trader | "+x.signal,{
-    body:x.symbol+
-     " | امتیاز: "+x.score+
-     " | قیمت: "+number(x.price,5),
-    icon:"./icon-192.png"
-   });
-  }catch(e){}
- });
+ if(!("Notification"in window)||Notification.permission!=="granted")return;
+ marketData.forEach(x=>{if(x.signal!=="BUY"&&x.signal!=="SELL")return;const key=x.symbol+"_"+x.signal+"_"+Math.floor(x.price/Math.max(x.atr,.00000001));if(notified.has(key))return;notified.add(key);try{new Notification("FAR Trader | "+x.signal,{body:x.symbol+" | امتیاز: "+x.score+" | قیمت: "+number(x.price,6),icon:"./icon-192.png"})}catch(e){}});
 }
-
-/* شروع خودکار */
-window.addEventListener("load",()=>{
- startScan();
- setInterval(()=>{
-  if(!document.hidden) startScan();
- },REFRESH_MS);
-});
-
-/* بروزرسانی هنگام بازگشت به برنامه */
-document.addEventListener("visibilitychange",()=>{
- if(!document.hidden && Date.now()-lastScan>REFRESH_MS){
-  startScan();
- }
-});
+window.addEventListener("load",()=>{startScan();setInterval(()=>{if(!document.hidden)startScan()},REFRESH_MS)});
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&Date.now()-lastScan>REFRESH_MS)startScan()});
 </script>
 </body>
 </html>
