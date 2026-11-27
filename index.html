@@ -2,10 +2,10 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#08111f">
 <link rel="manifest" href="./manifest.webmanifest">
-<title>FAR Trader V4.1</title>
+<title>FAR Trader V5 – AI Super Futures</title>
 
 <style>
 :root{
@@ -17,7 +17,7 @@
 --green:#21c58e;
 --red:#ff647c;
 --yellow:#f3bd55;
---blue:#69a7ff;
+--blue:#69a7ff
 }
 *{box-sizing:border-box}
 body{
@@ -27,13 +27,13 @@ color:var(--text);
 font-family:Tahoma,Arial,sans-serif
 }
 header{
-padding:20px;
+padding:19px;
 background:#0c1829;
 border-bottom:1px solid var(--line)
 }
-h1{font-size:23px;margin:0}
-.sub{color:var(--muted);font-size:12px;margin-top:8px}
-main{max-width:1100px;margin:auto;padding:12px}
+h1{font-size:22px;margin:0}
+.sub{color:var(--muted);font-size:12px;margin-top:8px;line-height:1.8}
+main{max-width:1150px;margin:auto;padding:12px}
 .card{
 background:var(--panel);
 border:1px solid var(--line);
@@ -43,40 +43,47 @@ margin-bottom:12px
 }
 .grid{
 display:grid;
-grid-template-columns:repeat(3,1fr);
+grid-template-columns:repeat(2,minmax(0,1fr));
 gap:8px
 }
-.metric{font-size:19px;font-weight:bold;margin-top:8px}
+.metric{font-size:18px;font-weight:bold;margin-top:8px}
 .label{font-size:11px;color:var(--muted)}
 h2{font-size:16px;margin:0 0 12px}
-button,select{
+button,select,input{
 background:#1c4778;
 color:white;
 border:1px solid #38506e;
 padding:11px;
 border-radius:9px;
-font:inherit
+font:inherit;
+max-width:100%
 }
 button:disabled{opacity:.5}
-.row{display:flex;gap:8px;flex-wrap:wrap}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .status{font-size:12px;color:var(--yellow);line-height:2;margin:10px 0}
 .tablewrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:12px;min-width:900px}
+table{
+width:100%;
+border-collapse:collapse;
+font-size:12px;
+min-width:950px
+}
 td,th{
-padding:11px 7px;
+padding:10px 7px;
 border-bottom:1px solid var(--line);
 text-align:right;
 white-space:nowrap
 }
 th{color:var(--muted)}
-.buy{color:var(--green)}
-.sell{color:var(--red)}
+.buy{color:var(--green);font-weight:bold}
+.sell{color:var(--red);font-weight:bold}
 .wait{color:var(--yellow)}
 .pill{
 padding:5px 9px;
 border-radius:20px;
 background:#263852;
-font-size:11px
+font-size:11px;
+display:inline-block
 }
 .coin{
 border:1px solid var(--line);
@@ -88,19 +95,35 @@ background:#0d192b
 .coin h3{margin:0 0 12px}
 .details{
 display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:9px
 }
 .detail{
 background:#14243a;
 padding:10px;
-border-radius:9px
+border-radius:9px;
+min-width:0
 }
-.detail b{display:block;margin-top:6px;font-size:14px;direction:ltr;text-align:right}
+.detail b{
+display:block;
+margin-top:6px;
+font-size:13px;
+direction:ltr;
+text-align:right;
+overflow-wrap:anywhere
+}
 .note{font-size:11px;color:var(--muted);line-height:2}
-footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
-@media(min-width:650px){
-.details{grid-template-columns:repeat(4,1fr)}
+.good{color:var(--green)}
+.bad{color:var(--red)}
+footer{
+text-align:center;
+color:var(--muted);
+font-size:11px;
+padding:20px
+}
+@media(min-width:700px){
+.grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.details{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
 </style>
 </head>
@@ -108,8 +131,11 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
 <body>
 
 <header>
-<h1>FAR Trader <span style="color:#69a7ff">V4.1</span></h1>
-<div class="sub">Professional Technical Scanner • Bybit</div>
+<h1>FAR Trader <span style="color:#69a7ff">V5</span></h1>
+<div class="sub">
+AI-assisted Futures Scanner • Bybit USDT Perpetual
+• فقط تحلیل و هشدار، بدون ثبت سفارش
+</div>
 </header>
 
 <main>
@@ -117,13 +143,18 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
 <div class="grid">
 
 <div class="card">
-<div class="label">اتصال بازار</div>
+<div class="label">وضعیت اتصال</div>
 <div class="metric" id="connection">در انتظار</div>
 </div>
 
 <div class="card">
-<div class="label">ارزهای تحت بررسی</div>
-<div class="metric">3</div>
+<div class="label">تعداد نمادهای اسکن</div>
+<div class="metric" id="count">—</div>
+</div>
+
+<div class="card">
+<div class="label">سیگنال‌های قوی</div>
+<div class="metric" id="strongCount">0</div>
 </div>
 
 <div class="card">
@@ -134,29 +165,60 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
 </div>
 
 <section class="card">
-<h2>اسکن بازار</h2>
+
+<h2>کنترل اسکن</h2>
 
 <div class="row">
+
 <button id="refresh">شروع تحلیل</button>
 
+<button id="notify">فعال‌سازی اعلان‌ها</button>
+
 <select id="filter">
-<option value="ALL">همه سیگنال‌ها</option>
-<option value="BUY">خرید</option>
-<option value="SELL">فروش</option>
-<option value="WAIT">انتظار</option>
+<option value="ALL">همه نتایج</option>
+<option value="BUY">فقط LONG</option>
+<option value="SELL">فقط SHORT</option>
+<option value="WAIT">فقط انتظار</option>
 </select>
+
+<label class="label">
+حداقل امتیاز
+<select id="minScore">
+<option value="70">۷۰</option>
+<option value="75" selected>۷۵</option>
+<option value="80">۸۰</option>
+<option value="85">۸۵</option>
+<option value="90">۹۰</option>
+</select>
+</label>
+
 </div>
 
 <div class="status" id="marketStatus">
-آماده تحلیل بازار
+آماده شروع اسکن بازار فیوچرز
 </div>
 
+<p class="note">
+چهار نماد BTC، ETH، SOL و XRP همیشه بررسی می‌شوند؛
+سپس نمادهای USDT Perpetual بر اساس حجم معاملات
+۲۴ ساعته اضافه می‌شوند.
+تعداد نهایی حداکثر ۱۴ نماد است.
+</p>
+
+</section>
+
+<section class="card">
+
+<h2>نتایج اسکن بازار</h2>
+
 <div class="tablewrap">
+
 <table>
 <thead>
 <tr>
-<th>ارز</th>
+<th>نماد</th>
 <th>قیمت</th>
+<th>تغییر ۲۴ساعت</th>
 <th>روند ۱H</th>
 <th>حمایت ۱۵M</th>
 <th>مقاومت ۱۵M</th>
@@ -164,10 +226,15 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
 <th>امتیاز</th>
 </tr>
 </thead>
+
 <tbody id="markets">
-<tr><td colspan="7">در انتظار اطلاعات</td></tr>
+<tr>
+<td colspan="8">در انتظار اطلاعات بازار</td>
+</tr>
 </tbody>
+
 </table>
+
 </div>
 </section>
 
@@ -179,79 +246,84 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
 </section>
 
 <section class="card">
-<h2>مدیریت سرمایه</h2>
+<h2>مدیریت ریسک</h2>
+
 <div class="row">
+
+<label class="label">
+موجودی فرضی USDT
+<br>
+<input id="balance" type="number" value="1000" min="1">
+</label>
+
 <label class="label">
 ریسک هر معامله (%)
+<br>
 <input id="risk" type="number" value="0.5" min="0.1" max="2" step="0.1">
 </label>
+
 </div>
+
 <p class="note">
-ریسک انتخابی صرفاً برای محاسبات نمایشی است.
-هیچ سفارشی ثبت نمی‌شود.
+محاسبات نمایشی هستند و هیچ سفارشی ثبت نمی‌شود.
 </p>
 </section>
 
 <section class="card">
 <h2>Copy Trading</h2>
 <p class="note">
-برای مشاهده رتبه‌بندی واقعی معامله‌گران از پلتفرم رسمی Bybit استفاده کن.
+برای بررسی رتبه‌بندی معامله‌گران به صفحه رسمی بای‌بیت مراجعه کن.
 </p>
-<button onclick="window.open('https://www.bybit.com/copyTrading','_blank')">
-باز کردن Copy Trading
-</button>
+<button id="copyBtn">باز کردن Copy Trading بای‌بیت</button>
 </section>
 
 <section class="card">
-<h2>وضعیت معاملات</h2>
-<div class="pill">فقط سیگنال و تأیید دستی</div>
+<h2>نکات مهم</h2>
 <p class="note">
-این برنامه سفارش ثبت نمی‌کند.
-کلید API خود را در برنامه یا GitHub قرار نده.
-سیگنال‌ها تضمین سود نیستند.
+امتیاز ۹۰ از ۱۰۰ به معنی احتمال موفقیت ۹۰ درصد نیست.
+درصد موفقیت واقعی نیازمند بک‌تست است.
+هشدار ۳۰ ثانیه قبل از ورود قطعی قابل تضمین نیست.
+هیچ کلید API در برنامه وارد نکن.
 </p>
-</section>
+</section><script>
+'use strict';
 
-</main>
-
-<footer>
-FAR Trader V4.1 • Professional Market Scanner
-</footer>
-
-<script>
-
-const API=[
+const HOSTS=[
 'https://api.bybit.com',
 'https://api.bytick.com'
 ];
 
-const SYMBOLS=[
+const CORE=[
 'BTCUSDT',
 'ETHUSDT',
-'SOLUSDT'
+'SOLUSDT',
+'XRPUSDT'
 ];
+
+const MAX_SYMBOLS=14;
 
 const $=id=>document.getElementById(id);
 
 let rows=[];
 let busy=false;
+const notified=new Set();
 
 async function getJSON(path){
 
 let errors=[];
 
-for(const host of API){
+for(const host of HOSTS){
 
 const controller=new AbortController();
 
 const timer=setTimeout(
 ()=>controller.abort(),
-20000
+12000
 );
 
 try{
 
-const response=await fetch(
+const res=await fetch(
 host+path,
 {
 cache:'no-store',
@@ -259,15 +331,15 @@ signal:controller.signal
 }
 );
 
-if(!response.ok)
-throw new Error('HTTP '+response.status);
+if(!res.ok)
+throw new Error('HTTP '+res.status);
 
-const json=await response.json();
+const data=await res.json();
 
-if(json.retCode!==0)
-throw new Error(json.retMsg||'API error');
+if(data.retCode!==0)
+throw new Error(data.retMsg||'Bybit API error');
 
-return json.result;
+return data.result;
 
 }catch(e){
 
@@ -281,7 +353,7 @@ clearTimeout(timer);
 
 }
 
-throw new Error(errors.join(' | '));
+throw new Error(errors.join(' / '));
 
 }
 
@@ -289,7 +361,7 @@ function ema(values,period){
 
 if(values.length<period)return null;
 
-let value=values
+let v=values
 .slice(0,period)
 .reduce((a,b)=>a+b,0)/period;
 
@@ -297,301 +369,447 @@ const k=2/(period+1);
 
 for(let i=period;i<values.length;i++){
 
-value=values[i]*k+value*(1-k);
+v=values[i]*k+v*(1-k);
 
 }
 
-return value;
+return v;
 
 }
 
-function candlesData(list){
+function parseCandles(list){
 
 return (list||[])
 .slice()
 .reverse()
-.map(c=>({
-time:+c[0],
-open:+c[1],
-high:+c[2],
-low:+c[3],
-close:+c[4],
-volume:+c[5]
+.map(x=>({
+
+time:+x[0],
+open:+x[1],
+high:+x[2],
+low:+x[3],
+close:+x[4],
+volume:+x[5]
+
 }))
 .filter(c=>
-Number.isFinite(c.close)&&
-Number.isFinite(c.high)&&
-Number.isFinite(c.low)
+[c.open,c.high,c.low,c.close]
+.every(Number.isFinite)
 );
 
 }
 
-async function getCandles(symbol,interval){
+async function candles(symbol,interval){
 
-const result=await getJSON(
-`/v5/market/kline?category=linear&symbol=${symbol}&interval=${interval}&limit=100`
+const r=await getJSON(
+`/v5/market/kline?category=linear&symbol=${encodeURIComponent(symbol)}&interval=${interval}&limit=120`
 );
 
-return candlesData(result.list);
+const all=parseCandles(r.list);
+
+const duration=Number(interval)*60000;
+
+const now=Date.now();
+
+return all
+.filter(c=>c.time+duration<=now)
+.slice(-100);
 
 }
 
-function trendAnalysis(candles){
+function getTrend(cs){
 
-const closes=candles.map(c=>c.close);
+const closes=cs.map(c=>c.close);
 
-const fast=ema(closes,20);
-const slow=ema(closes,50);
+const e20=ema(closes,20);
+
+const e50=ema(closes,50);
 
 const last=closes.at(-1);
 
-if(!fast||!slow)
+if(e20===null||e50===null)
 return 'خنثی';
 
-if(fast>slow&&last>fast)
+if(e20>e50&&last>e20)
 return 'صعودی';
 
-if(fast<slow&&last<fast)
+if(e20<e50&&last<e20)
 return 'نزولی';
 
 return 'خنثی';
 
 }
 
-function averageRange(candles){
-
-const recent=candles.slice(-20);
-
-if(!recent.length)return 0;
-
-return recent.reduce(
-(sum,c)=>sum+(c.high-c.low),0
-)/recent.length;
-
-}
-
-function findLevels(candles,price){
+function getLevels(cs,price){
 
 const lows=[];
 const highs=[];
 
-for(let i=2;i<candles.length-2;i++){
+for(let i=2;i<cs.length-2;i++){
 
-const c=candles[i];
+const c=cs[i];
 
 if(
-c.low<candles[i-1].low&&
-c.low<candles[i-2].low&&
-c.low<candles[i+1].low&&
-c.low<candles[i+2].low
+c.low<cs[i-1].low&&
+c.low<cs[i-2].low&&
+c.low<=cs[i+1].low&&
+c.low<=cs[i+2].low
 ){
+
 lows.push(c.low);
+
 }
 
 if(
-c.high>candles[i-1].high&&
-c.high>candles[i-2].high&&
-c.high>candles[i+1].high&&
-c.high>candles[i+2].high
+c.high>cs[i-1].high&&
+c.high>cs[i-2].high&&
+c.high>=cs[i+1].high&&
+c.high>=cs[i+2].high
 ){
+
 highs.push(c.high);
-}
 
 }
 
-const support=lows
+}
+
+return{
+
+support:lows
 .filter(x=>x<price)
-.sort((a,b)=>b-a)[0]||null;
+.sort((a,b)=>b-a)[0]??null,
 
-const resistance=highs
+resistance:highs
 .filter(x=>x>price)
-.sort((a,b)=>a-b)[0]||null;
+.sort((a,b)=>a-b)[0]??null
 
-return{support,resistance};
+};
 
 }
 
-function entryAnalysis(candles,trend){
+function atr(cs,period=14){
 
-const closes=candles.map(c=>c.close);
+const a=cs.slice(-(period+1));
 
-const fast=ema(closes,9);
-const slow=ema(closes,20);
+if(a.length<2)return 0;
 
-const last=candles.at(-1);
-const previous=candles.at(-2);
+const tr=[];
 
-let direction='WAIT';
+for(let i=1;i<a.length;i++){
+
+tr.push(Math.max(
+
+a[i].high-a[i].low,
+
+Math.abs(a[i].high-a[i-1].close),
+
+Math.abs(a[i].low-a[i-1].close)
+
+));
+
+}
+
+return tr.reduce((s,x)=>s+x,0)/tr.length;
+
+}
+
+function evaluate(c1,c15,c5,price){
+
+const trend=getTrend(c1);
+
+const levels=getLevels(c15,price);
+
+const cl=c5.map(c=>c.close);
+
+const e9=ema(cl,9);
+
+const e20=ema(cl,20);
+
+const last=c5.at(-1);
+
+const prev=c5.at(-2);
+
+const recentVolumes=c5.slice(-21,-1);
+
+const volAvg=
+recentVolumes.reduce((s,c)=>s+c.volume,0)/
+Math.max(1,recentVolumes.length);
+
+const volOK=last.volume>=volAvg*.8;
+
+const range=atr(c5);
+
+let signal='WAIT';
+
+let score=0;
+
+let reason='شرایط ورود کامل تأیید نشده است.';
+
+if(trend==='صعودی')
+score+=25;
+
+if(trend==='نزولی')
+score+=25;
 
 if(
+e9!==null&&
+e20!==null&&
+e9>e20&&
+trend==='صعودی'
+){
+
+score+=20;
+
+}
+
+if(
+e9!==null&&
+e20!==null&&
+e9<e20&&
+trend==='نزولی'
+){
+
+score+=20;
+
+}
+
+if(volOK)
+score+=10;
+
+const bullish=
 trend==='صعودی'&&
-fast>slow&&
-last.close>fast&&
+e9>e20&&
+last.close>e9&&
 last.close>last.open&&
-last.close>previous.close
-){
-direction='BUY';
+last.close>prev.close;
+
+const bearish=
+trend==='نزولی'&&
+e9<e20&&
+last.close<e9&&
+last.close<last.open&&
+last.close<prev.close;
+
+if(bullish){
+
+signal='BUY';
+
+score+=25;
+
+reason=
+'روند صعودی و تأیید کندل ورود در تایم‌فریم ۵ دقیقه.';
+
+}
+
+if(bearish){
+
+signal='SELL';
+
+score+=25;
+
+reason=
+'روند نزولی و تأیید کندل ورود در تایم‌فریم ۵ دقیقه.';
+
 }
 
 if(
-trend==='نزولی'&&
-fast<slow&&
-last.close<fast&&
-last.close<last.open&&
-last.close<previous.close
+signal==='BUY'&&
+levels.resistance&&
+levels.resistance-price<range*.7
 ){
-direction='SELL';
+
+signal='WAIT';
+
+score=Math.max(0,score-15);
+
+reason='مقاومت نزدیک است؛ ورود تأیید نشد.';
+
 }
 
-return{direction,fast,slow};
+if(
+signal==='SELL'&&
+levels.support&&
+price-levels.support<range*.7
+){
+
+signal='WAIT';
+
+score=Math.max(0,score-15);
+
+reason='حمایت نزدیک است؛ ورود تأیید نشد.';
 
 }
 
-function fmt(value){
+score=Math.min(95,Math.round(score));
 
-if(value===null||!Number.isFinite(value))
+let sl=null;
+
+let tp1=null;
+
+let tp2=null;
+
+let entry=null;
+
+if(signal!=='WAIT'&&range>0){
+
+entry=last.close;
+
+if(signal==='BUY'){
+
+sl=Math.min(
+entry-range*1.2,
+levels.support
+?levels.support-range*.15
+:Infinity
+);
+
+const risk=entry-sl;
+
+tp1=entry+2*risk;
+
+tp2=entry+3*risk;
+
+}else{
+
+sl=Math.max(
+entry+range*1.2,
+levels.resistance
+?levels.resistance+range*.15
+:-Infinity
+);
+
+const risk=sl-entry;
+
+tp1=entry-2*risk;
+
+tp2=entry-3*risk;
+
+}
+
+if(
+!Number.isFinite(sl)||
+sl<=0||
+!Number.isFinite(tp1)||
+!Number.isFinite(tp2)
+){
+
+signal='WAIT';
+
+entry=null;
+sl=null;
+tp1=null;
+tp2=null;
+
+reason='محاسبه امن حد ضرر ممکن نشد.';
+
+}
+
+}
+
+return{
+
+signal,
+score,
+trend,
+...levels,
+entry,
+sl,
+tp1,
+tp2,
+reason,
+atr:range,
+volOK
+
+};
+
+}
+
+function fmt(v){
+
+if(v===null||!Number.isFinite(v))
 return '—';
 
-return value.toLocaleString(
+return v.toLocaleString(
 'en-US',
 {maximumFractionDigits:8}
 );
 
 }
 
-function analyzeTrade(
-price,
-trend,
-levels,
-entry,
-candles
+async function getUniverse(){
+
+const r=await getJSON(
+'/v5/market/tickers?category=linear'
+);
+
+const all=(r.list||[])
+
+.filter(t=>
+t.symbol.endsWith('USDT')&&
+Number(t.turnover24h)>0
+);
+
+all.sort(
+(a,b)=>Number(b.turnover24h)-
+Number(a.turnover24h)
+);
+
+const top=all
+.slice(0,MAX_SYMBOLS)
+.map(t=>t.symbol);
+
+return [...new Set([
+...CORE,
+...top
+])].slice(0,MAX_SYMBOLS);
+
+}
+
+async function analyzeSymbol(symbol,tickerMap){
+
+const t=tickerMap.get(symbol);
+
+if(!t)
+throw new Error('Ticker در دسترس نیست');
+
+const price=Number(t.lastPrice);
+
+const [c1,c15,c5]=await Promise.all([
+
+candles(symbol,'60'),
+
+candles(symbol,'15'),
+
+candles(symbol,'5')
+
+]);
+
+if(
+c1.length<55||
+c15.length<15||
+c5.length<25
 ){
 
-const atr=averageRange(candles);
-
-let signal=entry.direction;
-
-let sl=null;
-let tp1=null;
-let tp2=null;
-let reason='';
-
-if(signal==='BUY'){
-
-sl=levels.support
-?Math.min(
-levels.support-atr*.25,
-price-atr*.5
-)
-:price-atr*1.5;
-
-const risk=price-sl;
-
-tp1=price+2*risk;
-tp2=price+3*risk;
-
-reason='روند صعودی و تأیید حرکت کوتاه‌مدت';
+throw new Error('داده کندلی کافی نیست');
 
 }
 
-else if(signal==='SELL'){
-
-sl=levels.resistance
-?Math.max(
-levels.resistance+atr*.25,
-price+atr*.5
-)
-:price+atr*1.5;
-
-const risk=sl-price;
-
-tp1=price-2*risk;
-tp2=price-3*risk;
-
-reason='روند نزولی و تأیید حرکت کوتاه‌مدت';
-
-}
-
-else{
-
-reason='شرایط ورود کامل تأیید نشده است';
-
-}
-
-let score=35;
-
-if(trend!=='خنثی')score+=20;
-
-if(signal!=='WAIT')score+=25;
-
-if(levels.support&&levels.resistance)
-score+=10;
-
-if(entry.fast&&entry.slow)
-score+=10;
-
-return{
-signal,
-sl,
-tp1,
-tp2,
-score:Math.min(score,100),
-reason,
-atr
-};
-
-}
-
-async function analyzeSymbol(symbol){
-
-const ticker=await getJSON(
-`/v5/market/tickers?category=linear&symbol=${symbol}`
-);
-
-const t=ticker.list[0];
-
-if(!t)throw new Error('Ticker not found');
-
-const price=+t.lastPrice;
-
-const candles1h=await getCandles(symbol,'60');
-
-const candles15m=await getCandles(symbol,'15');
-
-const candles5m=await getCandles(symbol,'5');
-
-const trend=trendAnalysis(candles1h);
-
-const levels=findLevels(
-candles15m,
-price
-);
-
-const entry=entryAnalysis(
-candles5m,
-trend
-);
-
-const trade=analyzeTrade(
-price,
-trend,
-levels,
-entry,
-candles5m
+const a=evaluate(
+c1,c15,c5,price
 );
 
 return{
+
 symbol,
 price,
-change:+t.price24hPcnt*100,
-trend,
-...levels,
-...trade
+change:Number(t.price24hPcnt)*100,
+turnover:Number(t.turnover24h),
+
+...a
+
 };
 
-}
-
-async function load(){
+}async function load(){
 
 if(busy)return;
 
@@ -602,68 +820,86 @@ $('refresh').disabled=true;
 $('connection').textContent='در حال اتصال';
 
 $('marketStatus').textContent=
-'در حال دریافت و تحلیل داده‌های بازار…';
+'دریافت فهرست ارزهای پرحجم…';
 
-const results=[];
+const fresh=[];
 
 try{
 
-for(const symbol of SYMBOLS){
+const [universe,tickerResult]=await Promise.all([
+
+getUniverse(),
+
+getJSON('/v5/market/tickers?category=linear')
+
+]);
+
+const tickerMap=new Map(
+(tickerResult.list||[])
+.map(t=>[t.symbol,t])
+);
+
+$('count').textContent=universe.length;
+
+for(const symbol of universe){
 
 $('marketStatus').textContent=
 'در حال تحلیل '+symbol+' …';
 
 try{
 
-const result=await analyzeSymbol(symbol);
+fresh.push(
+await analyzeSymbol(symbol,tickerMap)
+);
 
-results.push(result);
+}catch(e){
 
-rows=results.slice();
+fresh.push({
 
-render();
-
-}catch(error){
-
-results.push({
 symbol,
-error:error.message,
-signal:'ERROR'
+signal:'ERROR',
+error:e.message
+
 });
 
-rows=results.slice();
+}
+
+rows=fresh.slice();
 
 render();
 
 }
 
-}
-
-const success=results.filter(
-x=>x.signal!=='ERROR'
-).length;
-
-$('connection').textContent=
-success===3?'متصل':
-success>0?'اتصال ناقص':'خطا';
+$('connection').textContent='متصل';
 
 $('updated').textContent=
 new Date().toLocaleTimeString('fa-IR');
 
+const good=rows.filter(r=>
+r.signal==='BUY'||r.signal==='SELL'
+).length;
+
+$('strongCount').textContent=
+rows.filter(r=>
+(r.signal==='BUY'||r.signal==='SELL')&&
+r.score>=Number($('minScore').value)
+).length;
+
 $('marketStatus').textContent=
-`تحلیل پایان یافت؛ ${success} از ۳ ارز با موفقیت بررسی شدند.`;
+`اسکن تمام شد: ${fresh.length} نماد بررسی شد؛ ${good} سیگنال اولیه پیدا شد.`;
 
 }catch(e){
 
 $('connection').textContent='خطا';
 
-$('marketStatus').textContent=e.message;
+$('marketStatus').textContent=
+'خطا در دریافت داده: '+e.message;
 
 }finally{
 
-busy=false;
-
 $('refresh').disabled=false;
+
+busy=false;
 
 }
 
@@ -673,9 +909,10 @@ function render(){
 
 const filter=$('filter').value;
 
+const min=Number($('minScore').value);
+
 const list=rows.filter(r=>
-filter==='ALL'||
-r.signal===filter
+filter==='ALL'||r.signal===filter
 );
 
 $('markets').innerHTML=list.map(r=>{
@@ -685,65 +922,87 @@ if(r.error){
 return `
 <tr>
 <td>${r.symbol}</td>
-<td colspan="6" class="sell">خطا: ${r.error}</td>
+<td colspan="7" class="bad">${r.error}</td>
 </tr>
 `;
 
 }
 
+const cls=
+r.signal==='BUY'?'buy':
+r.signal==='SELL'?'sell':'wait';
+
 return `
 <tr>
 <td>${r.symbol}</td>
 <td>${fmt(r.price)}</td>
+<td>${r.change.toFixed(2)}%</td>
 <td>${r.trend}</td>
 <td>${fmt(r.support)}</td>
 <td>${fmt(r.resistance)}</td>
-<td class="${
-r.signal==='BUY'?'buy':
-r.signal==='SELL'?'sell':'wait'
-}">${r.signal}</td>
+<td class="${cls}">
+${r.signal==='BUY'?'LONG':
+r.signal==='SELL'?'SHORT':'WAIT'}
+</td>
 <td>${r.score}/100</td>
 </tr>
 `;
 
-}).join('');
+}).join('')||
+'<tr><td colspan="8">موردی برای نمایش وجود ندارد.</td></tr>';
 
-$('analysis').innerHTML=list.map(r=>{
+const cards=list.filter(r=>!r.error).map(r=>{
 
-if(r.error)return '';
+const strong=
+r.signal!=='WAIT'&&r.score>=min;
+
+const cls=
+r.signal==='BUY'?'buy':
+r.signal==='SELL'?'sell':'wait';
+
+const balance=Number($('balance').value);
+
+const riskPercent=Number($('risk').value);
+
+const riskCash=balance*riskPercent/100;
+
+const position=
+r.entry&&r.sl
+?riskCash/Math.abs(r.entry-r.sl)
+:null;
 
 return `
+
 <div class="coin">
 
-<h3>${r.symbol}
-<span class="pill">${r.signal}</span>
+<h3>
+${r.symbol}
+
+<span class="pill ${cls}">
+${r.signal==='BUY'?'LONG':
+r.signal==='SELL'?'SHORT':'WAIT'}
+</span>
+
+<span class="pill">
+${r.score}/100
+</span>
+
+${strong?
+'<span class="pill good">فیلتر انتخابی</span>':
+''}
+
 </h3>
 
 <div class="details">
 
 <div class="detail">
-<div class="label">قیمت فعلی</div>
+<div class="label">قیمت بازار</div>
 <b>${fmt(r.price)}</b>
 </div>
 
 <div class="detail">
-<div class="label">حمایت ۱۵ دقیقه</div>
-<b>${fmt(r.support)}</b>
-</div>
-
-<div class="detail">
-<div class="label">مقاومت ۱۵ دقیقه</div>
-<b>${fmt(r.resistance)}</b>
-</div>
-
-<div class="detail">
-<div class="label">روند یک ساعته</div>
-<b>${r.trend}</b>
-</div>
-
-<div class="detail">
-<div class="label">نقطه ورود پیشنهادی</div>
-<b>${r.signal==='WAIT'?'—':fmt(r.price)}</b>
+<div class="label">ورود پیشنهادی</div>
+<b>${fmt(r.entry)}</b>
 </div>
 
 <div class="detail">
@@ -761,26 +1020,159 @@ return `
 <b>${fmt(r.tp2)}</b>
 </div>
 
+<div class="detail">
+<div class="label">حجم نظری موقعیت</div>
+<b>
+${position?fmt(position)+' USDT':'—'}
+</b>
+</div>
+
+<div class="detail">
+<div class="label">حمایت / مقاومت</div>
+<b>
+${fmt(r.support)} / ${fmt(r.resistance)}
+</b>
+</div>
+
+<div class="detail">
+<div class="label">روند یک ساعته</div>
+<b>${r.trend}</b>
+</div>
+
 </div>
 
 <p class="note">
-امتیاز: ${r.score}/100
+
+تغییر ۲۴ ساعت:
+${r.change.toFixed(2)}٪
+
 <br>
-دلیل تحلیل: ${r.reason}
+
+گردش ۲۴ ساعت:
+${fmt(r.turnover)} USDT
+
 <br>
-تغییر ۲۴ ساعته: ${r.change.toFixed(2)}%
+
+دلیل تحلیل:
+${r.reason}
+
 </p>
 
 </div>
+
 `;
 
-}).join('')||'موردی برای نمایش وجود ندارد.';
+}).join('');
+
+$('analysis').innerHTML=
+cards||
+'<div class="note">نتیجه‌ای برای نمایش نیست.</div>';
+
+notifySignals(min);
 
 }
 
-$('refresh').addEventListener('click',load);
+function notifySignals(min){
 
-$('filter').addEventListener('change',render);
+if(
+!('Notification'in window)||
+Notification.permission!=='granted'
+)return;
+
+for(const r of rows){
+
+if(
+r.error||
+r.signal==='WAIT'||
+r.score<min
+)continue;
+
+const key=
+r.symbol+'-'+
+r.signal+'-'+
+Math.floor(Date.now()/3600000);
+
+if(notified.has(key))continue;
+
+notified.add(key);
+
+try{
+
+new Notification(
+'FAR Trader V5 • '+r.symbol,
+{
+
+body:
+`${r.signal==='BUY'?'LONG':'SHORT'} |
+امتیاز ${r.score}/100 |
+ورود: ${fmt(r.entry)} |
+حد ضرر: ${fmt(r.sl)}`,
+
+icon:'./icon-192.png'
+
+}
+);
+
+}catch(e){}
+
+}
+
+}
+
+$('refresh').addEventListener(
+'click',
+load
+);
+
+$('filter').addEventListener(
+'change',
+render
+);
+
+$('minScore').addEventListener(
+'change',
+render
+);
+
+$('balance').addEventListener(
+'input',
+render
+);
+
+$('risk').addEventListener(
+'input',
+render
+);
+
+$('notify').addEventListener(
+'click',
+async()=>{
+
+if(!('Notification'in window)){
+
+alert('این مرورگر از اعلان پشتیبانی نمی‌کند.');
+
+return;
+
+}
+
+const p=await Notification.requestPermission();
+
+$('marketStatus').textContent=
+p==='granted'
+?'اعلان‌ها فعال شدند.'
+:'مجوز اعلان داده نشد.';
+
+}
+);
+
+$('copyBtn').addEventListener(
+'click',
+()=>window.open(
+'https://www.bybit.com/copyTrading',
+'_blank'
+)
+);
 
 if('serviceWorker'in navigator){
 
