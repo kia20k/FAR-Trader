@@ -1,0 +1,17 @@
+{
+  "name": "far-trader-v68",
+  "version": "6.8.0",
+  "description": "FAR Trader Bybit Futures Scanner",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "web-push": "^3.6.7"
+  }
+}
