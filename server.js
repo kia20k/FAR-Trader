@@ -394,8 +394,10 @@ app.post("/api/push/unsubscribe", (req, res) => {
   res.json({ success: true });
 });
 
-// شروع سرور
-app.listen(PORT, () => {
+// صفحه اصلی FAR Trader
+app.get("/", (req, res) => {
+res.send("<!DOCTYPE html> <html lang="fa" dir="rtl"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1"> <title>FAR Trader V6.8</title> <style> body { background: #08111f; color: white; font-family: Tahoma; text-align: center; padding: 40px 15px; } .box { background: #142238; padding: 25px; border-radius: 15px; max-width: 450px; margin: auto; } .online { color: #00e676; } a { color: #00d9ff; display: block; margin: 20px; } </style> </head> <body> <div class="box"> <h2>FAR Trader V6.8 🚀</h2> <h3 class="online">● سرور آنلاین است</h3> <p>Professional Futures Scanner</p> <a href="/api/status">وضعیت سرور</a> <a href="/api/signals">مشاهده سیگنال‌ها</a> </div> </body> </html>");
+});
   console.log(`FAR Trader V6.8 running on port ${PORT}`);
 
   scanMarket();
